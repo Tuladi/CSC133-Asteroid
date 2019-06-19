@@ -9,11 +9,7 @@ import com.codename1.ui.layouts.BoxLayout;
 
 public class PointsView extends Container implements Observer {
 	// Instantiate text labels
-	private Label pValueLabel;
-	private Label pMCValueLabel;
-	private Label pLivesLabel;
-	private Label pSoundLabel;
-	private Label pTimeLabel;
+	private Label pScoreLabel, pMissileLabel, pLivesLabel, pSoundLabel, pTimeLabel;
 	
 	public PointsView() 
 	{
@@ -44,7 +40,6 @@ public class PointsView extends Container implements Observer {
 		pvContainer.add(pTimeLabel);
 		
 		
-		
 		this.add(pvContainer);
 	}
 	
@@ -52,8 +47,11 @@ public class PointsView extends Container implements Observer {
 	public void update(Observable observable, Object data)
 	{
 		IGameWorld gw = (IGameWorld) data;
-		this.pValueLabel.setText("" + gw.getPlayerScore());
-		
+		this.pScoreLabel.setText("" + gw.getPlayerScore());
+		this.pMissileLabel.setText("" + gw.getPlayerScore());
+		this.pLivesLabel.setText("" + gw.getPlayerScore());
+		this.pSoundLabel.setText("" + gw.getPlayerScore());
+		this.pTimeLabel.setText("" + gw.getPlayerScore());
 		this.repaint();
 	}
 }
