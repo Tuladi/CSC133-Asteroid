@@ -4,6 +4,7 @@ import java.util.Observer;
 
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Container;
+import com.codename1.ui.Font;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
 
@@ -15,13 +16,14 @@ public class PointsView extends Container implements Observer {
 	{
 		Container pvContainer = new Container();
 		pvContainer.setLayout(new BoxLayout(BoxLayout.X_AXIS));
+		Font newFont = Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL);
 		
 		//Labels
-		Label pTextLabel = new Label("Score: ");
-		Label pMCLabel = new Label("Missile Count: ");
-		Label pLivesLabel = new Label("Lives: ");
-		Label pSoundLabel = new Label("Sound: ");
-		Label pTimeLabel = new Label("Time: ");
+		Label pTextLabel = new Label("Score:");
+		Label pMCLabel = new Label("Missile Count:");
+		Label pLivesLabel = new Label("Lives:");
+		Label pSoundLabel = new Label("Sound:");
+		Label pTimeLabel = new Label("Time:");
 		
 		pNScoreLabel = new Label("_");
 		pNMissileLabel = new Label("_");
@@ -36,6 +38,18 @@ public class PointsView extends Container implements Observer {
 		pSoundLabel.getAllStyles().setFgColor(ColorUtil.BLACK);
 		pTimeLabel.getAllStyles().setFgColor(ColorUtil.BLACK);
 		
+		//Fonts
+		pTextLabel.getAllStyles().setFont(newFont);
+		pNScoreLabel.getAllStyles().setFont(newFont);
+		pMCLabel.getAllStyles().setFont(newFont);
+		pNMissileLabel.getAllStyles().setFont(newFont);
+		pLivesLabel.getAllStyles().setFont(newFont);
+		pNLivesLabel.getAllStyles().setFont(newFont);
+		pSoundLabel.getAllStyles().setFont(newFont);
+		pNSoundLabel.getAllStyles().setFont(newFont);
+		pTimeLabel.getAllStyles().setFont(newFont);
+		pNTimeLabel.getAllStyles().setFont(newFont);
+		
 		//Alignment
 		
 		//Adding Containers
@@ -49,6 +63,7 @@ public class PointsView extends Container implements Observer {
 		pvContainer.add(pNSoundLabel);
 		pvContainer.add(pTimeLabel);
 		pvContainer.add(pNTimeLabel);
+		
 		this.add(pvContainer);
 	}
 	
