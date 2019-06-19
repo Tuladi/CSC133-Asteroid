@@ -15,6 +15,8 @@ import com.mycompany.a2.commands.AddAsteroidCommand;
 import com.mycompany.a2.commands.AddNPSCommand;
 import com.mycompany.a2.commands.AddPSCommand;
 import com.mycompany.a2.commands.AddSpaceStation;
+import com.mycompany.a2.commands.JumpCommand;
+import com.mycompany.a2.commands.PSFireCommand;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
@@ -84,8 +86,7 @@ public class Game extends Form {
 		this.show();
 	}
 	
-	private void controlPanel(
-			)
+	private void controlPanel()
 	{
 		Toolbar controlPanel = new Toolbar();
 		setToolbar(controlPanel);
@@ -141,6 +142,32 @@ public class Game extends Form {
 		addPS.setCommand(myAddPS);
 		
 		controlPanel.addCommandToLeftSideMenu(myAddPS);
+		
+		//PS Fire
+		Button firePSMissile = new Button("PS Fire");
+		firePSMissile.getAllStyles().setBgTransparency(255);
+		firePSMissile.getUnselectedStyle().setBgColor(ColorUtil.CYAN);
+		firePSMissile.getAllStyles().setFgColor(ColorUtil.WHITE);
+		firePSMissile.getAllStyles().setPadding(TOP,5);
+		firePSMissile.getAllStyles().setPadding(BOTTOM,5);
+		
+		PSFireCommand myPSFire = new PSFireCommand(gw);
+		firePSMissile.setCommand(myPSFire);
+		
+		controlPanel.addCommandToLeftSideMenu(myPSFire);
+		
+		//Jump
+		Button jumpButton = new Button("PS Fire");
+		jumpButton.getAllStyles().setBgTransparency(255);
+		jumpButton.getUnselectedStyle().setBgColor(ColorUtil.CYAN);
+		jumpButton.getAllStyles().setFgColor(ColorUtil.WHITE);
+		jumpButton.getAllStyles().setPadding(TOP,5);
+		jumpButton.getAllStyles().setPadding(BOTTOM,5);
+		
+		JumpCommand myJumpCommand = new JumpCommand(gw);
+		jumpButton.setCommand(myJumpCommand);
+		
+		controlPanel.addCommandToLeftSideMenu(myJumpCommand);
 		show();
 	}
 	
