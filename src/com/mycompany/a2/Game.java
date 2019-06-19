@@ -27,6 +27,7 @@ public class Game extends Form {
 	private MapView mv;
 	private PointsView pv;
 	private GameObjectCollection GameCollection;
+	Toolbar controlPanel = new Toolbar();
 	
 	public Game() {
 		gw = new GameWorld();
@@ -35,9 +36,11 @@ public class Game extends Form {
 		GameCollection = new GameObjectCollection();
 		
 		gw.init();
-		play(); 
+		//play(); 
 		gw.addObserver(mv);
 		gw.addObserver(pv);
+		
+		setToolbar(controlPanel);
 		
 		controlPanel();
 	}
@@ -83,8 +86,7 @@ public class Game extends Form {
 	
 	private void controlPanel()
 	{
-		Toolbar controlPanel = new Toolbar();
-		setToolbar(controlPanel);
+		
 		pv.getAllStyles().setBorder(Border.createLineBorder(1,ColorUtil.BLACK));
 		controlPanel.setTitleComponent(pv);
 		
