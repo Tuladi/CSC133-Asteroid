@@ -264,6 +264,8 @@ public class Game extends Form {
 		
 		//Quit
 		
+		this.add(BorderLayout.WEST, controlPanel);
+		
 		show();
 	}
 	
