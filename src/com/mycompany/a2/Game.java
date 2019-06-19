@@ -6,6 +6,7 @@
 package com.mycompany.a2;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Button;
+import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Form;
@@ -43,20 +44,22 @@ public class Game extends Form {
 		gw.addObserver(pv);
 		
 		toolbar();
-		
 		controlPanel();
+		keyBindings();
 	}
 	
 	private void keyBindings()
 	{
 		
 	}
-	private void quit(Label label, TextField textField) 
+	private void quit() 
 	{
-		Label myLabel=new Label("Are you sure you want to quit? (Y/N)"); 
+		Container quitContainer = new Container(new GridLayout(2,1));
+		Label myLabel=new Label("Are you sure you want to quit? (Y/N)");
+		quitContainer.addComponent(myLabel);
 		TextField myTextField = new TextField();
-		this.replace(label, myLabel, null);
-		this.replace(textField, myTextField, null);
+		quitContainer.addComponent(myTextField);
+		this.add(BorderLayout.SOUTH, quitContainer);
 		this.show();
 		myTextField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -70,7 +73,8 @@ public class Game extends Form {
 						System.exit(0);
 						break;
 					case 'N':
-						revert(myLabel, label, myTextField, textField);
+						myTextField.remove();
+						myLabel.remove();
 						return;
 					default:
 						System.out.println("Please input \'Y\' or \'N\'");
@@ -80,16 +84,22 @@ public class Game extends Form {
 		});
 	}
 	
-	private void revert(Label label, Label newLabel, TextField textField, TextField newTextField) {
-		this.replace(label, newLabel, null);
-		this.replace(textField, newTextField, null);
-		this.show();
-	}
-	
 	private void toolbar() {
 		setToolbar(toolBar);
 		pv.getAllStyles().setBorder(Border.createLineBorder(1,ColorUtil.BLACK));
 		toolBar.setTitleComponent(pv);
+		
+		//Quit Button
+		Button quitGame = new Button("Quit Game");
+		quitGame.getAllStyles().setBgTransparency(255);
+		quitGame.getUnselectedStyle().setBgColor(ColorUtil.CYAN);
+		quitGame.getAllStyles().setFgColor(ColorUtil.WHITE);
+		quitGame.getAllStyles().setPadding(TOP,5);
+		quitGame.getAllStyles().setPadding(BOTTOM,5);
+		
+		quitGame.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {quit();}});
+		toolBar.addComponentToLeftSideMenu(quitGame);
+		addKeyListener('Q', new ActionListener() {public void actionPerformed(ActionEvent e) {quit();}});
 	}
 	
 	private void controlPanel()
@@ -274,7 +284,7 @@ public class Game extends Form {
 						gw.tick();
 						break;	
 					case 'q':
-						quit(myLabel, myTextField);
+						quit();
 						break;
 					default:
 						System.out.println("Error, invalid input");
