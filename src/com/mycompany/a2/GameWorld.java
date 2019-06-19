@@ -49,16 +49,22 @@ public class GameWorld extends Observable implements IGameWorld{
 			}
 		}
 		store.add(PlayerShip.getPlayerShip());
+		setChanged();
+		notifyObservers();
 	}
 	
 	public void addNonPlayerShip() {
 		NonPlayerShip tiFighter = new NonPlayerShip();
 		store.add(tiFighter);
+		setChanged();
+		notifyObservers();
 	}
 	
 	public void addSpaceStation() {
 		SpaceStation deathStar = new SpaceStation();
 		store.add(deathStar);
+		setChanged();
+		notifyObservers();
 	}
 	
 	public void firePSMissile() {
@@ -72,6 +78,8 @@ public class GameWorld extends Observable implements IGameWorld{
 					this.numPSMissiles = mFalcon.getMC();
 					store.setElementAt(mFalcon, i);
 					System.out.println("PS missile fired");
+					setChanged();
+					notifyObservers();
 					return;
 				}
 				else {
@@ -91,6 +99,8 @@ public class GameWorld extends Observable implements IGameWorld{
 					tiFighter.decrementMC();
 					store.setElementAt(tiFighter, i);
 					System.out.println("NPS missile fired");
+					setChanged();
+					notifyObservers();
 					return;
 				}
 				else {
@@ -128,9 +138,14 @@ public class GameWorld extends Observable implements IGameWorld{
 				if(mFalcon.getSpeed() < 20) {
 					mFalcon.increaseSpeed();
 					System.out.println("Player Ship Speed increased to: " + mFalcon.getSpeed());
+					setChanged();
+					notifyObservers();
+					return;
 				}
-				else
+				else {
 					System.out.println("Ship alread going ludicrous speed. Cannot jump to plaid.");
+					return;
+				}
 			}
 		}
 	}
@@ -140,10 +155,16 @@ public class GameWorld extends Observable implements IGameWorld{
 		for(int i=0; i<store.size(); i++) {
 			if(store.elementAt(i) instanceof PlayerShip) {
 				PlayerShip mFalcon = (PlayerShip) store.get(i);
-				if (mFalcon.getSpeed() >= 0)
+				if (mFalcon.getSpeed() >= 0) {
 					mFalcon.decreaseSpeed();
-				else
+					setChanged();
+					notifyObservers();
+					return;
+				}
+				else {
 					System.out.println("Cannot decrease speed. PS already stopped.");
+					return;
+				}
 			}
 		
 		}
@@ -156,6 +177,9 @@ public class GameWorld extends Observable implements IGameWorld{
 				PlayerShip mFalcon = (PlayerShip) store.get(i);
 				mFalcon.turnLeft();
 				System.out.println("Drifting lazily to the left");
+				setChanged();
+				notifyObservers();
+				return;
 			}
 		}
 	}
@@ -167,6 +191,9 @@ public class GameWorld extends Observable implements IGameWorld{
 				PlayerShip mFalcon = (PlayerShip) store.get(i);
 				mFalcon.turnRight();
 				System.out.println("PS turned right");
+				setChanged();
+				notifyObservers();
+				return;
 			}
 		}
 	}
@@ -177,6 +204,9 @@ public class GameWorld extends Observable implements IGameWorld{
 				PlayerShip mFalcon = (PlayerShip) store.get(i);
 				mFalcon.revolveML();
 				System.out.println("Rotating Missile Launcher");
+				setChanged();
+				notifyObservers();
+				return;
 			}
 		}
 	}
@@ -188,6 +218,9 @@ public class GameWorld extends Observable implements IGameWorld{
 				PlayerShip mFalcon = (PlayerShip) store.get(i);
 				mFalcon.setLocation(512, 384);
 				System.out.println("Punch it Chewie!");
+				setChanged();
+				notifyObservers();
+				return;
 			}
 		}
 	}
@@ -207,6 +240,8 @@ public class GameWorld extends Observable implements IGameWorld{
 				}
 			}
 		}
+		setChanged();
+		notifyObservers();
 	}
 	
 	//TODO Currently destroys a random missile and asteroid. Make it destroy "close" missiles and asteroids
@@ -227,6 +262,8 @@ public class GameWorld extends Observable implements IGameWorld{
 								this.playerScore += 10;
 								System.out.println("+10 points");
 							}
+							setChanged();
+							notifyObservers();
 							return;
 						//}
 					}
@@ -253,6 +290,8 @@ public class GameWorld extends Observable implements IGameWorld{
 								this.playerScore += 50;
 								System.out.println("+50 points");
 							}
+							setChanged();
+							notifyObservers();
 							return;
 						//}
 					}
@@ -278,6 +317,8 @@ public class GameWorld extends Observable implements IGameWorld{
 								System.out.println("Player Ship destroyed");
 								store.remove(mFalcon);
 							}
+							setChanged();
+							notifyObservers();
 							return;
 						//}
 					}
@@ -305,6 +346,8 @@ public class GameWorld extends Observable implements IGameWorld{
 								System.out.println("Player Ship destroyed");
 								store.remove(mFalcon);
 							}
+							setChanged();
+							notifyObservers();
 							return;
 						//}
 					}
@@ -331,6 +374,8 @@ public class GameWorld extends Observable implements IGameWorld{
 								System.out.println("Player Ship destroyed");
 								store.remove(mFalcon);
 							}
+							setChanged();
+							notifyObservers();
 							return;
 						//}
 					}
@@ -352,6 +397,8 @@ public class GameWorld extends Observable implements IGameWorld{
 							System.out.println("Two Asteroids collided");
 							store.remove(roid);
 							store.remove(roid2);
+							setChanged();
+							notifyObservers();
 							return;
 						//}
 					}
@@ -372,6 +419,8 @@ public class GameWorld extends Observable implements IGameWorld{
 							System.out.println("An Asteroid collided with an NPS");
 							store.remove(roid);
 							store.remove(tiFighter);
+							setChanged();
+							notifyObservers();
 							return;
 						//}
 					}
@@ -404,7 +453,8 @@ public class GameWorld extends Observable implements IGameWorld{
 					deathStar.toggleLight();
 			}
 		}
-		
+		setChanged();
+		notifyObservers();
 	}
 	
 	public int getPlayerScore () { return this.playerScore; }

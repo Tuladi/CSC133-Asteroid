@@ -56,10 +56,10 @@ public class Game extends Form {
 		gw.addObserver(mv);
 		gw.addObserver(pv);
 		
-		toolbar();
-		controlPanel();
-		mapArea();
 		keyBindings();
+		controlPanel();
+		toolbar();
+		mapArea();
 	}
 	
 	private void keyBindings()
