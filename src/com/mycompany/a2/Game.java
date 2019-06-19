@@ -53,7 +53,6 @@ public class Game extends Form {
 		GameCollection = new GameObjectCollection();
 		
 		gw.init();
-		//play(); 
 		gw.addObserver(mv);
 		gw.addObserver(pv);
 		
@@ -125,6 +124,7 @@ public class Game extends Form {
 		addKeyListener('t', myTickCommand);
 		
 		//Quit
+		addKeyListener('Q', new ActionListener() {public void actionPerformed(ActionEvent e) {quit();}});
 	}
 	private void quit() 
 	{
@@ -173,7 +173,6 @@ public class Game extends Form {
 		
 		quitGame.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {quit();}});
 		toolBar.addComponentToLeftSideMenu(quitGame);
-		addKeyListener('Q', new ActionListener() {public void actionPerformed(ActionEvent e) {quit();}});
 	}
 	
 	private void controlPanel()
@@ -258,117 +257,11 @@ public class Game extends Form {
 		
 		JumpCommand myJumpCommand = new JumpCommand(gw);
 		jumpButton.setCommand(myJumpCommand);
-
 		controlPanel.add(jumpButton);
 		addKeyListener('j', myJumpCommand);
 		
 		this.add(BorderLayout.WEST, controlPanel);
 		
 		show();
-	}
-	
-	private void play() 
-	{
-		Label myLabel=new Label("Enter a Command:"); this.addComponent(myLabel);
-			final TextField myTextField=new TextField();
-			this.addComponent(myTextField);
-			this.show();
-			myTextField.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-				String sCommand = myTextField.getText().toString();
-				if(sCommand.length() == 0) {
-					return;
-				}
-				myTextField.clear();
-				switch (sCommand.charAt(0)) {
-					case 'a':
-						gw.addNewAsteroid();
-						System.out.println("Asteroid added");
-						break;
-					case 'y':
-						gw.addNonPlayerShip();
-						System.out.println("NPS added");
-						break;
-					case 's':
-						try {
-							gw.addPlayerShip();
-							System.out.println("PS added");
-						}
-						catch(Exception e) {
-							System.out.println(e);
-						}
-						break;
-					case 'b':
-						gw.addSpaceStation();
-						System.out.println("Space Station added");
-						break;
-					case 'f':
-						gw.firePSMissile();
-						break;
-					case 'L':
-						gw.fireNPSMissile();
-						break;
-					case 'm':
-						gw.printMap();
-						break;
-					case 'p':
-						gw.displayScores();
-						break;
-					case 'i':
-						gw.increasePSSpeed();
-						break;
-					case 'd':
-						gw.decreasePSSpeed();
-						break;
-					case 'l':
-						gw.turnPSL();
-						break;
-					case 'r':
-						gw.turnPSR();
-						break;
-					case '>':
-						gw.turnPSML();
-						break;
-					case 'j':
-						gw.jump();
-						break;
-					case 'n':
-						gw.reload();
-						break;
-					case 'k':
-						gw.missileHitAsteroid();
-						break;
-					case 'e':
-						gw.missileHitNPS();
-						break;
-					case 'E':
-						gw.explodedPS();
-						break;	
-					case 'c':
-						gw.asteroidHitPS();
-						break;	
-					case 'h':
-						gw.npsHitPS();
-						break;	
-					case 'x':
-						gw.asteroidHitAsteroid();
-						break;	
-					case 'I':
-						gw.asteroidHitAsteroid();
-						break;	
-					case 't':
-						gw.tick();
-						break;	
-					case 'q':
-						quit();
-						break;
-					default:
-						System.out.println("Error, invalid input");
-						break;
-				} //switch
-			} //actionPerformed
-			} //new ActionListener()
-			); //addActionListener
-			
 	}
 }
