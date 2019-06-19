@@ -58,6 +58,7 @@ public class Game extends Form {
 		
 		toolbar();
 		controlPanel();
+		mapArea();
 		keyBindings();
 	}
 	
@@ -156,6 +157,19 @@ public class Game extends Form {
 				}
 			}
 		});
+	}
+	
+	private void mapArea() {
+		Container mapArea = new Container(new GridLayout(5, 5));
+		
+		mapArea.getAllStyles().setBgTransparency(255);
+		mapArea.getAllStyles().setPadding(TOP, 5);
+		mapArea.getAllStyles().setPadding(BOTTOM, 5);
+		mapArea.getAllStyles().setPadding(LEFT, 5);
+		mapArea.getAllStyles().setPadding(RIGHT, 5);
+		mapArea.getAllStyles().setBorder(Border.createLineBorder(1, ColorUtil.BLACK));
+		
+		this.add(BorderLayout.CENTER, mapArea);
 	}
 	
 	private void toolbar() {
