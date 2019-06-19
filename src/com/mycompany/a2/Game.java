@@ -155,6 +155,7 @@ public class Game extends Form {
 		firePSMissile.setCommand(myPSFire);
 		
 		controlPanel.addCommandToLeftSideMenu(myPSFire);
+		addKeyListener(-90, myPSFire);
 		
 		//Jump
 		Button jumpButton = new Button("PS Fire");
@@ -168,6 +169,7 @@ public class Game extends Form {
 		jumpButton.setCommand(myJumpCommand);
 		
 		controlPanel.addCommandToLeftSideMenu(myJumpCommand);
+		addKeyListener('j', myJumpCommand);
 		show();
 	}
 	
