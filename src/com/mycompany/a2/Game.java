@@ -64,7 +64,67 @@ public class Game extends Form {
 	
 	private void keyBindings()
 	{
+		//PS Speed (+)
+		IncreasePSSpeed myIncreasePSSpeedCmd = new IncreasePSSpeed(gw);
+		addKeyListener(-91, myIncreasePSSpeedCmd);
 		
+		//PS Speed (-)
+		DecreasePSSpeed myDecreasePSSpeedCmd = new DecreasePSSpeed(gw);
+		addKeyListener(-92, myDecreasePSSpeedCmd);
+		
+		//PS Left
+		SteerPSLeft mySteerPSLeftCmd = new SteerPSLeft(gw);
+		addKeyListener(-93, mySteerPSLeftCmd);
+		
+		//PS Right
+		SteerPSRight mySteerPSRightCmd = new SteerPSRight(gw);
+		addKeyListener(-94, mySteerPSRightCmd);
+		
+		//MSL Left
+		
+		//MSL Right
+		
+		//NPS Fire
+		NPSFireCommand myNPSFireCmd = new NPSFireCommand(gw);
+		addKeyListener('L', myNPSFireCmd);
+				
+		//Load PS
+		LoadPSCommand myLoadPSCmd = new LoadPSCommand(gw);
+		addKeyListener('n', myLoadPSCmd);
+		
+		//PS Missile hits Asteroid
+		PSMHitsAsteroidCommand myPSMHitsAsteroidCmd = new PSMHitsAsteroidCommand(gw);
+		addKeyListener('k', myPSMHitsAsteroidCmd);
+		
+		//PS Missile hits NPS
+		PSMHitsNPSCommand myPSMHitsNPSCmd = new PSMHitsNPSCommand(gw);
+		addKeyListener('e', myPSMHitsNPSCmd);
+		
+		//NPS hits PS
+		NPSMHitsPSCommand myNPSMHitsPSCmd = new NPSMHitsPSCommand(gw);
+		addKeyListener('E', myNPSMHitsPSCmd);
+		
+		//PS hits Asteroid
+		PSHitsAsteroidCommand myPSHitsAsteroidCmd = new PSHitsAsteroidCommand(gw);
+		addKeyListener('c', myPSHitsAsteroidCmd);
+		
+		//PS hits NPS
+		PSHitsNPSCommand myPSHitsNPSCmd = new PSHitsNPSCommand(gw);
+		addKeyListener('h', myPSHitsNPSCmd);
+		
+		//Asteroid hits Asteroid
+		AsteroidHitsAsteroidCommand myAsteroidHitsAsteroidCmd = new AsteroidHitsAsteroidCommand(gw);
+		addKeyListener('x', myAsteroidHitsAsteroidCmd);
+		
+		//Asteroid hits NPS
+		AsteroidNPSCommand myAsteroidNPS = new AsteroidNPSCommand(gw);
+		addKeyListener('I', myAsteroidNPS);
+		
+		//Tick 
+		TickCommand myTickCommand = new TickCommand(gw);
+		addKeyListener('t', myTickCommand);
+		
+		//Quit
 	}
 	private void quit() 
 	{
@@ -173,26 +233,6 @@ public class Game extends Form {
 		addPS.setCommand(myAddPS);
 		controlPanel.add(addPS);
 		
-		//PS Speed (+)
-		IncreasePSSpeed myIncreasePSSpeedCmd = new IncreasePSSpeed(gw);
-		addKeyListener(-91, myIncreasePSSpeedCmd);
-		
-		//PS Speed (-)
-		DecreasePSSpeed myDecreasePSSpeedCmd = new DecreasePSSpeed(gw);
-		addKeyListener(-92, myDecreasePSSpeedCmd);
-		
-		//PS Left
-		SteerPSLeft mySteerPSLeftCmd = new SteerPSLeft(gw);
-		addKeyListener(-93, mySteerPSLeftCmd);
-		
-		//PS Right
-		SteerPSRight mySteerPSRightCmd = new SteerPSRight(gw);
-		addKeyListener(-94, mySteerPSRightCmd);
-		
-		//MSL Left
-		
-		//MSL Right
-		
 		//PS Fire
 		Button firePSMissile = new Button("PS Fire");
 		firePSMissile.getAllStyles().setBgTransparency(255);
@@ -206,10 +246,6 @@ public class Game extends Form {
 		firePSMissile.setCommand(myPSFireCmd);
 		controlPanel.add(firePSMissile);
 		addKeyListener(-90, myPSFireCmd);
-		
-		//NPS Fire
-		NPSFireCommand myNPSFireCmd = new NPSFireCommand(gw);
-		addKeyListener('L', myNPSFireCmd);
 		
 		//Jump
 		Button jumpButton = new Button("PS Fire");
@@ -225,44 +261,6 @@ public class Game extends Form {
 
 		controlPanel.add(jumpButton);
 		addKeyListener('j', myJumpCommand);
-		
-		//Load PS
-		LoadPSCommand myLoadPSCmd = new LoadPSCommand(gw);
-		addKeyListener('n', myLoadPSCmd);
-		
-		//PS Missile hits Asteroid
-		PSMHitsAsteroidCommand myPSMHitsAsteroidCmd = new PSMHitsAsteroidCommand(gw);
-		addKeyListener('k', myPSMHitsAsteroidCmd);
-		
-		//PS Missile hits NPS
-		PSMHitsNPSCommand myPSMHitsNPSCmd = new PSMHitsNPSCommand(gw);
-		addKeyListener('e', myPSMHitsNPSCmd);
-		
-		//NPS hits PS
-		NPSMHitsPSCommand myNPSMHitsPSCmd = new NPSMHitsPSCommand(gw);
-		addKeyListener('E', myNPSMHitsPSCmd);
-		
-		//PS hits Asteroid
-		PSHitsAsteroidCommand myPSHitsAsteroidCmd = new PSHitsAsteroidCommand(gw);
-		addKeyListener('c', myPSHitsAsteroidCmd);
-		
-		//PS hits NPS
-		PSHitsNPSCommand myPSHitsNPSCmd = new PSHitsNPSCommand(gw);
-		addKeyListener('h', myPSHitsNPSCmd);
-		
-		//Asteroid hits Asteroid
-		AsteroidHitsAsteroidCommand myAsteroidHitsAsteroidCmd = new AsteroidHitsAsteroidCommand(gw);
-		addKeyListener('x', myAsteroidHitsAsteroidCmd);
-		
-		//Asteroid hits NPS
-		AsteroidNPSCommand myAsteroidNPS = new AsteroidNPSCommand(gw);
-		addKeyListener('I', myAsteroidNPS);
-		
-		//Tick 
-		TickCommand myTickCommand = new TickCommand(gw);
-		addKeyListener('t', myTickCommand);
-		
-		//Quit
 		
 		this.add(BorderLayout.WEST, controlPanel);
 		
