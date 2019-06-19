@@ -5,7 +5,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
 public class PSFireCommand extends Command{
-private GameWorld gw;
+	private GameWorld gw;
 	
 	public PSFireCommand(GameWorld gw)
 	{

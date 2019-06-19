@@ -34,6 +34,9 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void addNewAsteroid() {
 		Asteroid roid = new Asteroid(random.nextInt(25) + 6);
 		store.add(roid);
+		
+		//this.setChanged();
+		//this.notifyObservers(new GameWorldProxy(this));
 	}
 	
 	public void addPlayerShip() throws Exception {

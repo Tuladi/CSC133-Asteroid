@@ -1,24 +1,22 @@
 package com.mycompany.a2.commands;
+
 import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
 import com.mycompany.a2.GameWorld;
 
-public class AddAsteroidCommand extends Command {
+public class NPSFireCommand extends Command{
 	private GameWorld gw;
 	
-	public AddAsteroidCommand(GameWorld gw)
+	public NPSFireCommand(GameWorld gw)
 	{
-		super("Add Asteroid");
+		super("NPS fire a missile");
 		this.gw = gw;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		gw.addNewAsteroid();
-		System.out.println("Add Asteroid command is invoked");
+		gw.fireNPSMissile();
+		System.out.println("NPS fire command is invoked");
 	}
-	
 }
-
-

@@ -18,8 +18,22 @@ import com.mycompany.a2.commands.AddAsteroidCommand;
 import com.mycompany.a2.commands.AddNPSCommand;
 import com.mycompany.a2.commands.AddPSCommand;
 import com.mycompany.a2.commands.AddSpaceStation;
+import com.mycompany.a2.commands.AsteroidHitsAsteroidCommand;
+import com.mycompany.a2.commands.AsteroidNPSCommand;
+import com.mycompany.a2.commands.DecreasePSSpeed;
+import com.mycompany.a2.commands.IncreasePSSpeed;
 import com.mycompany.a2.commands.JumpCommand;
+import com.mycompany.a2.commands.LoadPSCommand;
+import com.mycompany.a2.commands.NPSFireCommand;
+import com.mycompany.a2.commands.NPSMHitsPSCommand;
 import com.mycompany.a2.commands.PSFireCommand;
+import com.mycompany.a2.commands.PSHitsAsteroidCommand;
+import com.mycompany.a2.commands.PSHitsNPSCommand;
+import com.mycompany.a2.commands.PSMHitsAsteroidCommand;
+import com.mycompany.a2.commands.PSMHitsNPSCommand;
+import com.mycompany.a2.commands.SteerPSLeft;
+import com.mycompany.a2.commands.SteerPSRight;
+import com.mycompany.a2.commands.TickCommand;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
@@ -159,6 +173,26 @@ public class Game extends Form {
 		addPS.setCommand(myAddPS);
 		controlPanel.add(addPS);
 		
+		//PS Speed (+)
+		IncreasePSSpeed myIncreasePSSpeedCmd = new IncreasePSSpeed(gw);
+		addKeyListener(-91, myIncreasePSSpeedCmd);
+		
+		//PS Speed (-)
+		DecreasePSSpeed myDecreasePSSpeedCmd = new DecreasePSSpeed(gw);
+		addKeyListener(-92, myDecreasePSSpeedCmd);
+		
+		//PS Left
+		SteerPSLeft mySteerPSLeftCmd = new SteerPSLeft(gw);
+		addKeyListener(-93, mySteerPSLeftCmd);
+		
+		//PS Right
+		SteerPSRight mySteerPSRightCmd = new SteerPSRight(gw);
+		addKeyListener(-94, mySteerPSRightCmd);
+		
+		//MSL Left
+		
+		//MSL Right
+		
 		//PS Fire
 		Button firePSMissile = new Button("PS Fire");
 		firePSMissile.getAllStyles().setBgTransparency(255);
@@ -168,10 +202,14 @@ public class Game extends Form {
 		firePSMissile.getAllStyles().setPadding(BOTTOM,5);
 		firePSMissile.getAllStyles().setBorder(Border.createLineBorder(1, ColorUtil.LTGRAY));
 		
-		PSFireCommand myPSFire = new PSFireCommand(gw);
-		firePSMissile.setCommand(myPSFire);
+		PSFireCommand myPSFireCmd = new PSFireCommand(gw);
+		firePSMissile.setCommand(myPSFireCmd);
 		controlPanel.add(firePSMissile);
-		addKeyListener(-90, myPSFire);
+		addKeyListener(-90, myPSFireCmd);
+		
+		//NPS Fire
+		NPSFireCommand myNPSFireCmd = new NPSFireCommand(gw);
+		addKeyListener('L', myNPSFireCmd);
 		
 		//Jump
 		Button jumpButton = new Button("PS Fire");
@@ -184,10 +222,48 @@ public class Game extends Form {
 		
 		JumpCommand myJumpCommand = new JumpCommand(gw);
 		jumpButton.setCommand(myJumpCommand);
+
 		controlPanel.add(jumpButton);
 		addKeyListener('j', myJumpCommand);
 		
-		this.add(BorderLayout.WEST, controlPanel);
+		//Load PS
+		LoadPSCommand myLoadPSCmd = new LoadPSCommand(gw);
+		addKeyListener('n', myLoadPSCmd);
+		
+		//PS Missile hits Asteroid
+		PSMHitsAsteroidCommand myPSMHitsAsteroidCmd = new PSMHitsAsteroidCommand(gw);
+		addKeyListener('k', myPSMHitsAsteroidCmd);
+		
+		//PS Missile hits NPS
+		PSMHitsNPSCommand myPSMHitsNPSCmd = new PSMHitsNPSCommand(gw);
+		addKeyListener('e', myPSMHitsNPSCmd);
+		
+		//NPS hits PS
+		NPSMHitsPSCommand myNPSMHitsPSCmd = new NPSMHitsPSCommand(gw);
+		addKeyListener('E', myNPSMHitsPSCmd);
+		
+		//PS hits Asteroid
+		PSHitsAsteroidCommand myPSHitsAsteroidCmd = new PSHitsAsteroidCommand(gw);
+		addKeyListener('c', myPSHitsAsteroidCmd);
+		
+		//PS hits NPS
+		PSHitsNPSCommand myPSHitsNPSCmd = new PSHitsNPSCommand(gw);
+		addKeyListener('h', myPSHitsNPSCmd);
+		
+		//Asteroid hits Asteroid
+		AsteroidHitsAsteroidCommand myAsteroidHitsAsteroidCmd = new AsteroidHitsAsteroidCommand(gw);
+		addKeyListener('x', myAsteroidHitsAsteroidCmd);
+		
+		//Asteroid hits NPS
+		AsteroidNPSCommand myAsteroidNPS = new AsteroidNPSCommand(gw);
+		addKeyListener('I', myAsteroidNPS);
+		
+		//Tick 
+		TickCommand myTickCommand = new TickCommand(gw);
+		addKeyListener('t', myTickCommand);
+		
+		//Quit
+		
 		show();
 	}
 	
