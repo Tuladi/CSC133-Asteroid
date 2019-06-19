@@ -9,7 +9,7 @@ import com.codename1.ui.layouts.BoxLayout;
 
 public class PointsView extends Container implements Observer {
 	// Instantiate text labels
-	private Label pScoreLabel, pMissileLabel, pLivesLabel, pSoundLabel, pTimeLabel;
+	private Label pNScoreLabel, pNMissileLabel, pNLivesLabel, pNSoundLabel, pNTimeLabel;
 	
 	public PointsView() 
 	{
@@ -23,6 +23,12 @@ public class PointsView extends Container implements Observer {
 		Label pSoundLabel = new Label("Sound: ");
 		Label pTimeLabel = new Label("Time: ");
 		
+		pNScoreLabel = new Label("_");
+		pNMissileLabel = new Label("_");
+		pNLivesLabel = new Label("_");
+		pNSoundLabel = new Label("_");
+		pNTimeLabel = new Label("_");
+		
 		//Colors
 		pTextLabel.getAllStyles().setFgColor(ColorUtil.BLACK);
 		pMCLabel.getAllStyles().setFgColor(ColorUtil.BLACK);
@@ -34,24 +40,27 @@ public class PointsView extends Container implements Observer {
 		
 		//Adding Containers
 		pvContainer.add(pTextLabel);
+		pvContainer.add(pNScoreLabel);
 		pvContainer.add(pMCLabel);
-		pvContainer.add(pLivesLabel);	
+		pvContainer.add(pNMissileLabel);
+		pvContainer.add(pLivesLabel);
+		pvContainer.add(pNLivesLabel);
 		pvContainer.add(pSoundLabel);
+		pvContainer.add(pNSoundLabel);
 		pvContainer.add(pTimeLabel);
-		
-		
+		pvContainer.add(pNTimeLabel);
 		this.add(pvContainer);
 	}
 	
 	@Override
-	public void update(Observable observable, Object data)
+	public void update(Observable realObject, Object data)
 	{
-		IGameWorld gw = (IGameWorld) data;
-		this.pScoreLabel.setText("" + gw.getPlayerScore());
-		this.pMissileLabel.setText("" + gw.getPlayerScore());
-		this.pLivesLabel.setText("" + gw.getPlayerScore());
-		this.pSoundLabel.setText("" + gw.getPlayerScore());
-		this.pTimeLabel.setText("" + gw.getPlayerScore());
+		GameWorld gw = (GameWorld) realObject;
+		this.pNScoreLabel.setText("" + gw.getPlayerScore());
+		this.pNMissileLabel.setText("" + gw.getMissileCount());
+		this.pNLivesLabel.setText("" + gw.getNumLives());
+		this.pNSoundLabel.setText("" + gw.getSoundState());
+		this.pNTimeLabel.setText("" + gw.getElapsedTime());
 		this.repaint();
 	}
 }

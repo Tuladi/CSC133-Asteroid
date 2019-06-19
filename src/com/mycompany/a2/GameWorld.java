@@ -20,6 +20,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	private int numPSMissiles;
 	private double width;
 	private double length;
+	private boolean sound;
 	
 	public void init()
 	{
@@ -28,6 +29,7 @@ public class GameWorld extends Observable implements IGameWorld{
 		this.numLives = 3;
 		this.elapsedGameTime = 0;
 		this.numPSMissiles = 10;
+		this.sound = true;
 		//store = new GameObjectCollection();
 	}
 	
@@ -35,8 +37,9 @@ public class GameWorld extends Observable implements IGameWorld{
 		Asteroid roid = new Asteroid(random.nextInt(25) + 6);
 		store.add(roid);
 		
-		//this.setChanged();
-		//this.notifyObservers(new GameWorldProxy(this));
+		setChanged();
+		notifyObservers();
+		
 	}
 	
 	public void addPlayerShip() throws Exception {
@@ -405,6 +408,10 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public int getPlayerScore () { return this.playerScore; }
+	public int getNumLives () { return this.numLives; }
+	public boolean getSoundState () { return this.sound; }
+	public int getMissileCount () { return this.numPSMissiles; }
+	public int getElapsedTime () { return this.elapsedGameTime; }
 	
 	@Override
 	public Iterator getIterator() {
