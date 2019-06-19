@@ -39,11 +39,6 @@ public class Game extends Form {
 		gw.addObserver(mv);
 		gw.addObserver(pv);
 		
-		setLayout(new BorderLayout());
-		pv.getAllStyles().setPadding(Component.TOP, 150);
-		pv.getAllStyles().setBorder(Border.createLineBorder(4,ColorUtil.BLACK));
-		add(BorderLayout.NORTH,pv);
-		
 		controlPanel();
 	}
 	
@@ -90,13 +85,15 @@ public class Game extends Form {
 	{
 		Toolbar controlPanel = new Toolbar();
 		setToolbar(controlPanel);
+		pv.getAllStyles().setBorder(Border.createLineBorder(1,ColorUtil.BLACK));
+		controlPanel.setTitleComponent(pv);
 		
 		//Asteroid Button
 		Button addAsteroid = new Button("Add Asteroid");
 		addAsteroid.getAllStyles().setBgTransparency(255);
 		addAsteroid.getUnselectedStyle().setBgColor(ColorUtil.CYAN);
 		addAsteroid.getAllStyles().setFgColor(ColorUtil.WHITE);
-		addAsteroid.getAllStyles().setPadding(TOP,15);
+		addAsteroid.getAllStyles().setPadding(TOP,5);
 		addAsteroid.getAllStyles().setPadding(BOTTOM,5);
 		
 		AddAsteroidCommand myAddAsteroid = new AddAsteroidCommand(gw);
