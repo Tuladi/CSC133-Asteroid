@@ -18,9 +18,9 @@ public class MapView extends Container implements Observer{
 	}
 	
 	@Override
-	public void update(Observable observable, Object data) {
+	public void update(Observable realObject, Object data) {
 		// TODO Auto-generated method stub
-		GameWorld gw = (GameWorld) data;
+		GameWorld gw = (GameWorld) realObject;
 		gw.printMap();
 	}
 
