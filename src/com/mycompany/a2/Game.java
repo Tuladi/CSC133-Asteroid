@@ -7,9 +7,11 @@ package com.mycompany.a2;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Button;
 import com.codename1.ui.Component;
+import com.codename1.ui.Container;
 import com.codename1.ui.Form;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.plaf.Border;
 import com.mycompany.a2.commands.AddAsteroidCommand;
 import com.mycompany.a2.commands.AddNPSCommand;
@@ -27,7 +29,7 @@ public class Game extends Form {
 	private MapView mv;
 	private PointsView pv;
 	private GameObjectCollection GameCollection;
-	Toolbar controlPanel = new Toolbar();
+	Toolbar toolBar = new Toolbar();
 	
 	public Game() {
 		gw = new GameWorld();
@@ -40,7 +42,7 @@ public class Game extends Form {
 		gw.addObserver(mv);
 		gw.addObserver(pv);
 		
-		setToolbar(controlPanel);
+		toolbar();
 		
 		controlPanel();
 	}
@@ -84,91 +86,98 @@ public class Game extends Form {
 		this.show();
 	}
 	
+	private void toolbar() {
+		setToolbar(toolBar);
+		pv.getAllStyles().setBorder(Border.createLineBorder(1,ColorUtil.BLACK));
+		toolBar.setTitleComponent(pv);
+	}
+	
 	private void controlPanel()
 	{
-		
-		//pv.getAllStyles().setBorder(Border.createLineBorder(1,ColorUtil.WHITE));
-		controlPanel.setTitleComponent(pv);
+		this.setLayout(new BorderLayout());
+		Container controlPanel = new Container(new GridLayout(1, 1));
 		
 		//Asteroid Button
 		Button addAsteroid = new Button("Add Asteroid");
 		addAsteroid.getAllStyles().setBgTransparency(255);
-		addAsteroid.getUnselectedStyle().setBgColor(ColorUtil.CYAN);
+		addAsteroid.getUnselectedStyle().setBgColor(ColorUtil.BLUE);
 		addAsteroid.getAllStyles().setFgColor(ColorUtil.WHITE);
 		addAsteroid.getAllStyles().setPadding(TOP,5);
 		addAsteroid.getAllStyles().setPadding(BOTTOM,5);
+		addAsteroid.getAllStyles().setBorder(Border.createLineBorder(1, ColorUtil.LTGRAY));
 		
 		AddAsteroidCommand myAddAsteroid = new AddAsteroidCommand(gw);
 		addAsteroid.setCommand(myAddAsteroid);
-		
-		controlPanel.addCommandToLeftSideMenu(myAddAsteroid);
+		controlPanel.add(addAsteroid);
 		
 		//Add NPS
 		Button addNPS = new Button("Add NPS");
 		addNPS.getAllStyles().setBgTransparency(255);
-		addNPS.getUnselectedStyle().setBgColor(ColorUtil.CYAN);
+		addNPS.getUnselectedStyle().setBgColor(ColorUtil.BLUE);
 		addNPS.getAllStyles().setFgColor(ColorUtil.WHITE);
 		addNPS.getAllStyles().setPadding(TOP,5);
 		addNPS.getAllStyles().setPadding(BOTTOM,5);
+		addNPS.getAllStyles().setBorder(Border.createLineBorder(1, ColorUtil.LTGRAY));
 		
 		AddNPSCommand myAddNPS = new AddNPSCommand(gw);
 		addNPS.setCommand(myAddNPS);
-		
-		controlPanel.addCommandToLeftSideMenu(myAddNPS);
+		controlPanel.add(addNPS);
 		
 		//Add Space Station
 		Button addSpaceStation = new Button("Add Space Station");
 		addSpaceStation.getAllStyles().setBgTransparency(255);
-		addSpaceStation.getUnselectedStyle().setBgColor(ColorUtil.CYAN);
+		addSpaceStation.getUnselectedStyle().setBgColor(ColorUtil.BLUE);
 		addSpaceStation.getAllStyles().setFgColor(ColorUtil.WHITE);
 		addSpaceStation.getAllStyles().setPadding(TOP,5);
 		addSpaceStation.getAllStyles().setPadding(BOTTOM,5);
+		addSpaceStation.getAllStyles().setBorder(Border.createLineBorder(1, ColorUtil.LTGRAY));
 		
 		AddSpaceStation myAddSS = new AddSpaceStation(gw);
 		addSpaceStation.setCommand(myAddSS);
-		
-		controlPanel.addCommandToLeftSideMenu(myAddSS);
+		controlPanel.add(addSpaceStation);
 		
 		//Add PS
 		Button addPS = new Button("Add PS");
 		addPS.getAllStyles().setBgTransparency(255);
-		addPS.getUnselectedStyle().setBgColor(ColorUtil.CYAN);
+		addPS.getUnselectedStyle().setBgColor(ColorUtil.BLUE);
 		addPS.getAllStyles().setFgColor(ColorUtil.WHITE);
 		addPS.getAllStyles().setPadding(TOP,5);
 		addPS.getAllStyles().setPadding(BOTTOM,5);
+		addPS.getAllStyles().setBorder(Border.createLineBorder(1, ColorUtil.LTGRAY));
 		
 		AddPSCommand myAddPS = new AddPSCommand(gw);
 		addPS.setCommand(myAddPS);
-		
-		controlPanel.addCommandToLeftSideMenu(myAddPS);
+		controlPanel.add(addPS);
 		
 		//PS Fire
 		Button firePSMissile = new Button("PS Fire");
 		firePSMissile.getAllStyles().setBgTransparency(255);
-		firePSMissile.getUnselectedStyle().setBgColor(ColorUtil.CYAN);
+		firePSMissile.getUnselectedStyle().setBgColor(ColorUtil.BLUE);
 		firePSMissile.getAllStyles().setFgColor(ColorUtil.WHITE);
 		firePSMissile.getAllStyles().setPadding(TOP,5);
 		firePSMissile.getAllStyles().setPadding(BOTTOM,5);
+		firePSMissile.getAllStyles().setBorder(Border.createLineBorder(1, ColorUtil.LTGRAY));
 		
 		PSFireCommand myPSFire = new PSFireCommand(gw);
 		firePSMissile.setCommand(myPSFire);
-		
-		controlPanel.addCommandToLeftSideMenu(myPSFire);
+		controlPanel.add(firePSMissile);
 		addKeyListener(-90, myPSFire);
 		
 		//Jump
 		Button jumpButton = new Button("PS Fire");
 		jumpButton.getAllStyles().setBgTransparency(255);
-		jumpButton.getUnselectedStyle().setBgColor(ColorUtil.CYAN);
+		jumpButton.getUnselectedStyle().setBgColor(ColorUtil.BLUE);
 		jumpButton.getAllStyles().setFgColor(ColorUtil.WHITE);
 		jumpButton.getAllStyles().setPadding(TOP,5);
 		jumpButton.getAllStyles().setPadding(BOTTOM,5);
+		jumpButton.getAllStyles().setBorder(Border.createLineBorder(1, ColorUtil.LTGRAY));
 		
 		JumpCommand myJumpCommand = new JumpCommand(gw);
 		jumpButton.setCommand(myJumpCommand);
-		
-		controlPanel.addCommandToLeftSideMenu(myJumpCommand);
+		controlPanel.add(jumpButton);
 		addKeyListener('j', myJumpCommand);
+		
+		this.add(BorderLayout.WEST, controlPanel);
 		show();
 	}
 	
