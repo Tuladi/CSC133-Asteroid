@@ -160,7 +160,7 @@ public class Game extends Form {
 	
 	private void toolbar() {
 		setToolbar(toolBar);
-		pv.getAllStyles().setBorder(Border.createLineBorder(1,ColorUtil.BLACK));
+		//pv.getAllStyles().setBorder(Border.createLineBorder(1,ColorUtil.BLACK));
 		toolBar.setTitleComponent(pv);
 		
 		//Quit Button

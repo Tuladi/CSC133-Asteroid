@@ -16,7 +16,9 @@ public class JumpCommand extends Command {
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		gw.jump();
-		System.out.println("Jump command is invoked");
+		if (e.getKeyEvent() != -1) {
+			gw.jump();
+			System.out.println("Jump command is invoked");
+		}
 	}
 }

@@ -16,7 +16,9 @@ public class AsteroidHitsAsteroidCommand extends Command {
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		gw.asteroidHitAsteroid();
-		System.out.println("Asteroid crashes into Asteroid command is invoked");
+		if (e.getKeyEvent() != -1) {
+			gw.asteroidHitAsteroid();
+			System.out.println("Asteroid crashes into Asteroid command is invoked");
+		}
 	}
 }

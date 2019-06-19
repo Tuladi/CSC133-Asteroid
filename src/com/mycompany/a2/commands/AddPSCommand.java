@@ -14,12 +14,14 @@ public class AddPSCommand extends Command {
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		try {
-			gw.addPlayerShip();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		if (e.getKeyEvent() != -1) {
+			try {
+				gw.addPlayerShip();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			System.out.println("Add Playership command is invoked");
 		}
-		System.out.println("Add Playership command is invoked");
 	}
 }

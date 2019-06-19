@@ -14,7 +14,9 @@ public class AddSpaceStation extends Command{
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		gw.addSpaceStation();
-		System.out.println("Add Space Station command is invoked");
+		if (e.getKeyEvent() != -1) {
+			gw.addSpaceStation();
+			System.out.println("Add Space Station command is invoked");
+		}
 	}
 }

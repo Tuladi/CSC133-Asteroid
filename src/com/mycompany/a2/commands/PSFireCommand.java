@@ -16,7 +16,9 @@ public class PSFireCommand extends Command{
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		gw.firePSMissile();
-		System.out.println("PS fire command is invoked");
+		if (e.getKeyEvent() != -1) {
+			gw.firePSMissile();
+			System.out.println("PS fire command is invoked");
+		}
 	}
 }
