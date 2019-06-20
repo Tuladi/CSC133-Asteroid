@@ -31,6 +31,8 @@ import com.mycompany.a2.commands.PSHitsNPSCommand;
 import com.mycompany.a2.commands.PSMHitsAsteroidCommand;
 import com.mycompany.a2.commands.PSMHitsNPSCommand;
 import com.mycompany.a2.commands.SteerPSLeft;
+import com.mycompany.a2.commands.SteerPSMLLeft;
+import com.mycompany.a2.commands.SteerPSMLRight;
 import com.mycompany.a2.commands.SteerPSRight;
 import com.mycompany.a2.commands.TickCommand;
 import com.mycompany.a2.commands.ToggleSoundCommand;
@@ -81,8 +83,12 @@ public class Game extends Form {
 		addKeyListener(-94, mySteerPSRightCmd);
 		
 		//MSL Left
+		SteerPSMLLeft mySteerPSMLLeftCmd = new SteerPSMLLeft(gw);
+		addKeyListener('>', mySteerPSMLLeftCmd);
 		
 		//MSL Right
+		SteerPSMLRight mySteerPSMLRightCmd = new SteerPSMLRight(gw);
+		addKeyListener('>', mySteerPSMLRightCmd);
 		
 		//NPS Fire
 		NPSFireCommand myNPSFireCmd = new NPSFireCommand(gw);

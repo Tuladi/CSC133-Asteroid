@@ -38,8 +38,12 @@ public class PlayerShip extends Ship implements ISteerable{
 		this.setSpeed(this.getSpeed() - 1);
 	}
 	
-	public void revolveML() {
+	public void revolveMLRight() {
 		launcher.turnRight();
+	}
+	
+	public void revolveMLLeft() {
+		launcher.turnLeft();
 	}
 	
 	@Override

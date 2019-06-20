@@ -198,12 +198,25 @@ public class GameWorld extends Observable implements IGameWorld{
 		}
 	}
 	
-	public void turnPSML() {
+	public void turnPSMLRight() {
 		for(int i=0;i<store.size();i++) {
 			if(store.elementAt(i) instanceof PlayerShip) {
 				PlayerShip mFalcon = (PlayerShip) store.get(i);
-				mFalcon.revolveML();
-				System.out.println("Rotating Missile Launcher");
+				mFalcon.revolveMLRight();
+				System.out.println("Rotating Missile Launcher Right");
+				setChanged();
+				notifyObservers();
+				return;
+			}
+		}
+	}
+	
+	public void turnPSMLLeft() {
+		for(int i=0;i<store.size();i++) {
+			if(store.elementAt(i) instanceof PlayerShip) {
+				PlayerShip mFalcon = (PlayerShip) store.get(i);
+				mFalcon.revolveMLLeft();
+				System.out.println("Rotating Missile Launcher Left");
 				setChanged();
 				notifyObservers();
 				return;
