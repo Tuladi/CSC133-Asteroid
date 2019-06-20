@@ -84,7 +84,7 @@ public class Game extends Form {
 		
 		//MSL Left
 		SteerPSMLLeft mySteerPSMLLeftCmd = new SteerPSMLLeft(gw);
-		addKeyListener('>', mySteerPSMLLeftCmd);
+		addKeyListener('<', mySteerPSMLLeftCmd);
 		
 		//MSL Right
 		SteerPSMLRight mySteerPSMLRightCmd = new SteerPSMLRight(gw);
