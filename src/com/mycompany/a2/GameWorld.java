@@ -457,6 +457,12 @@ public class GameWorld extends Observable implements IGameWorld{
 		notifyObservers();
 	}
 	
+	public void toggleSound() {
+		this.sound = !sound;
+		setChanged();
+		notifyObservers();
+	}
+	
 	public int getPlayerScore () { return this.playerScore; }
 	public int getNumLives () { return this.numLives; }
 	public boolean getSoundState () { return this.sound; }

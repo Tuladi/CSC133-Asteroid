@@ -6,8 +6,7 @@
 package com.mycompany.a2;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Button;
-import com.codename1.ui.Command;
-import com.codename1.ui.Component;
+import com.codename1.ui.CheckBox;
 import com.codename1.ui.Container;
 import com.codename1.ui.Form;
 import com.codename1.ui.events.ActionListener;
@@ -34,6 +33,7 @@ import com.mycompany.a2.commands.PSMHitsNPSCommand;
 import com.mycompany.a2.commands.SteerPSLeft;
 import com.mycompany.a2.commands.SteerPSRight;
 import com.mycompany.a2.commands.TickCommand;
+import com.mycompany.a2.commands.ToggleSoundCommand;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
@@ -56,10 +56,10 @@ public class Game extends Form {
 		gw.addObserver(mv);
 		gw.addObserver(pv);
 		
-		keyBindings();
-		controlPanel();
 		toolbar();
+		controlPanel();
 		mapArea();
+		keyBindings();
 	}
 	
 	private void keyBindings()
@@ -182,11 +182,18 @@ public class Game extends Form {
 		quitGame.getAllStyles().setBgTransparency(255);
 		quitGame.getUnselectedStyle().setBgColor(ColorUtil.CYAN);
 		quitGame.getAllStyles().setFgColor(ColorUtil.WHITE);
-		quitGame.getAllStyles().setPadding(TOP,5);
-		quitGame.getAllStyles().setPadding(BOTTOM,5);
 		
 		quitGame.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {quit();}});
 		toolBar.addComponentToLeftSideMenu(quitGame);
+		
+		//Sound Toggle
+		CheckBox soundToggle = new CheckBox("Toggle Sound");
+		soundToggle.getAllStyles().setBgTransparency(255);
+		soundToggle.getAllStyles().setBgColor(ColorUtil.CYAN);
+		soundToggle.getAllStyles().setFgColor(ColorUtil.WHITE);
+		ToggleSoundCommand myToggleSound = new ToggleSoundCommand(gw);
+		soundToggle.setCommand(myToggleSound);
+		toolBar.addComponentToLeftSideMenu(soundToggle);
 	}
 	
 	private void controlPanel()
