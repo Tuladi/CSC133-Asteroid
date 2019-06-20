@@ -249,6 +249,9 @@ public class GameWorld extends Observable implements IGameWorld{
 						Ship someShip = (Ship) store.get(i);
 						//if(deathStar.getLocation() == someShip.getLocation())
 							someShip.reloadMissiles();
+						if(someShip instanceof PlayerShip) {
+							this.numPSMissiles = 10;
+						}
 					}
 				}
 			}
