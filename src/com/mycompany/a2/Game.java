@@ -193,13 +193,49 @@ public class Game extends Form {
 		toolBar.addComponentToLeftSideMenu(quitGame);
 		
 		//Sound Toggle
-		CheckBox soundToggle = new CheckBox("Toggle Sound");
+		CheckBox soundToggle = new CheckBox("Sound");
 		soundToggle.getAllStyles().setBgTransparency(255);
 		soundToggle.getAllStyles().setBgColor(ColorUtil.CYAN);
 		soundToggle.getAllStyles().setFgColor(ColorUtil.WHITE);
 		ToggleSoundCommand myToggleSound = new ToggleSoundCommand(gw);
 		soundToggle.setCommand(myToggleSound);
 		toolBar.addComponentToLeftSideMenu(soundToggle);
+		
+		//About Button
+		Button aboutButton = new Button("About");
+		aboutButton.getAllStyles().setBgTransparency(255);
+		aboutButton.getUnselectedStyle().setBgColor(ColorUtil.CYAN);
+		aboutButton.getAllStyles().setFgColor(ColorUtil.WHITE);
+		aboutButton.getAllStyles().setPadding(TOP,5);
+		aboutButton.getAllStyles().setPadding(BOTTOM,5);
+		toolBar.addComponentToLeftSideMenu(aboutButton);
+		
+		//New Button
+		Button newButton = new Button("New Game");
+		newButton.getAllStyles().setBgTransparency(255);
+		newButton.getUnselectedStyle().setBgColor(ColorUtil.CYAN);
+		newButton.getAllStyles().setFgColor(ColorUtil.WHITE);
+		newButton.getAllStyles().setPadding(TOP,5);
+		newButton.getAllStyles().setPadding(BOTTOM,5);
+		toolBar.addComponentToLeftSideMenu(newButton);
+		
+		//Save Button
+		Button saveButton = new Button("Save Game");
+		saveButton.getAllStyles().setBgTransparency(255);
+		saveButton.getUnselectedStyle().setBgColor(ColorUtil.CYAN);
+		saveButton.getAllStyles().setFgColor(ColorUtil.WHITE);
+		saveButton.getAllStyles().setPadding(TOP,5);
+		saveButton.getAllStyles().setPadding(BOTTOM,5);
+		toolBar.addComponentToLeftSideMenu(saveButton);
+		
+		//Undo Button
+		Button undoButton = new Button("Undo");
+		undoButton.getAllStyles().setBgTransparency(255);
+		undoButton.getUnselectedStyle().setBgColor(ColorUtil.CYAN);
+		undoButton.getAllStyles().setFgColor(ColorUtil.WHITE);
+		undoButton.getAllStyles().setPadding(TOP,5);
+		undoButton.getAllStyles().setPadding(BOTTOM,5);
+		toolBar.addComponentToLeftSideMenu(undoButton);
 	}
 	
 	private void controlPanel()

@@ -25,10 +25,10 @@ public class PointsView extends Container implements Observer {
 		Label pSoundLabel = new Label("Sound:");
 		Label pTimeLabel = new Label("Time:");
 		
-		pNScoreLabel = new Label("_");
-		pNMissileLabel = new Label("_");
-		pNLivesLabel = new Label("_");
-		pNSoundLabel = new Label("_");
+		pNScoreLabel = new Label("0");
+		pNMissileLabel = new Label("10");
+		pNLivesLabel = new Label("3");
+		pNSoundLabel = new Label("ON");
 		pNTimeLabel = new Label("0");
 		
 		//Colors
@@ -38,19 +38,18 @@ public class PointsView extends Container implements Observer {
 		pSoundLabel.getAllStyles().setFgColor(ColorUtil.BLACK);
 		pTimeLabel.getAllStyles().setFgColor(ColorUtil.BLACK);
 		
-		//Fonts
-		pTextLabel.getAllStyles().setFont(newFont);
-		pNScoreLabel.getAllStyles().setFont(newFont);
-		pMCLabel.getAllStyles().setFont(newFont);
-		pNMissileLabel.getAllStyles().setFont(newFont);
-		pLivesLabel.getAllStyles().setFont(newFont);
-		pNLivesLabel.getAllStyles().setFont(newFont);
-		pSoundLabel.getAllStyles().setFont(newFont);
-		pNSoundLabel.getAllStyles().setFont(newFont);
-		pTimeLabel.getAllStyles().setFont(newFont);
-		pNTimeLabel.getAllStyles().setFont(newFont);
+		//Font for labels
+		pTextLabel.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_MEDIUM));
+		pMCLabel.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_MEDIUM));
+		pLivesLabel.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_MEDIUM));
+		pSoundLabel.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_MEDIUM));
+		pTimeLabel.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_MEDIUM));
 		
-		//Alignment
+		pNScoreLabel.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
+		pNMissileLabel.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
+		pNLivesLabel.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
+		pNSoundLabel.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
+		pNTimeLabel.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
 		
 		//Adding Containers
 		pvContainer.add(pTextLabel);

@@ -253,6 +253,7 @@ public class GameWorld extends Observable implements IGameWorld{
 				}
 			}
 		}
+		this.numPSMissiles = 10;
 		setChanged();
 		notifyObservers();
 	}
@@ -472,11 +473,29 @@ public class GameWorld extends Observable implements IGameWorld{
 		notifyObservers();
 	}
 	
-	public int getPlayerScore () { return this.playerScore; }
-	public int getNumLives () { return this.numLives; }
-	public boolean getSoundState () { return this.sound; }
-	public int getMissileCount () { return this.numPSMissiles; }
-	public int getElapsedTime () { return this.elapsedGameTime; }
+	public int getPlayerScore () 
+	{
+		return this.playerScore;
+	}
+	public int getNumLives () 
+	{ 
+		return this.numLives; 
+	}
+	public int getMissileCount () 
+	{
+		return this.numPSMissiles; 
+	}
+	public int getElapsedTime () 
+	{ 
+		return this.elapsedGameTime; 
+	}
+	public String getSoundState ()
+	{
+		if (this.sound == true)
+			return "ON";
+		else { return "OFF"; }
+	}
+	
 	
 	@Override
 	public Iterator getIterator() {
