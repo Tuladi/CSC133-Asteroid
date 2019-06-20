@@ -37,10 +37,9 @@ public class Missile extends MoveableGameObject{
 		this.fuelLevel = this.fuelLevel - 1;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public Class<Ship> getShipType() {
+	public Ship getShipType() {
 		//TODO Make sure this works
-		return this.owner.getClass();
+		return this.owner;
 	}
 	
 	public int getFuelLevel() {
@@ -48,8 +47,7 @@ public class Missile extends MoveableGameObject{
 	}
 	
 	public String toString() {
-		@SuppressWarnings("deprecation")
-		String parentDesc = this.getShipType().getSimpleName() + super.toString();
+		String parentDesc = super.toString();
 		String myDesc = " fuel=" + this.fuelLevel;
 		return parentDesc + myDesc; 
 	}

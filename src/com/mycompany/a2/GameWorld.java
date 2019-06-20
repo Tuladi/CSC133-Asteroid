@@ -258,7 +258,6 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	//TODO Currently destroys a random missile and asteroid. Make it destroy "close" missiles and asteroids
-	@SuppressWarnings("deprecation")
 	public void missileHitAsteroid()
 	{
 		for (int i=0; i<store.size(); i++) {
@@ -268,10 +267,10 @@ public class GameWorld extends Observable implements IGameWorld{
 					if(store.elementAt(j) instanceof Asteroid) {
 						Asteroid roid = (Asteroid) store.get(j);
 						//if(pewPew.getLocation() == roid.getLocation()) {
-							System.out.println(pewPew.getShipType().getSimpleName() + "'s Missile has destroyed an Asteroid");
+							System.out.println(pewPew.getShipType() + "'s Missile has destroyed an Asteroid");
 							store.remove(pewPew);
 							store.remove(roid);
-							if(pewPew.getShipType().getSimpleName() == "PlayerShip") {
+							if(pewPew.getShipType() instanceof PlayerShip) {
 								this.playerScore += 10;
 								System.out.println("+10 points");
 							}
@@ -286,7 +285,6 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	//TODO Currently destroys a random missile and random NPS. Make it destroy "Close" missiles and NPS
-	@SuppressWarnings("deprecation")
 	public void missileHitNPS()
 	{
 		for (int i=0; i<store.size(); i++) {
@@ -296,10 +294,10 @@ public class GameWorld extends Observable implements IGameWorld{
 					if(store.elementAt(j) instanceof NonPlayerShip) {
 						NonPlayerShip tiFighter = (NonPlayerShip) store.get(j);
 						//if(pewPew.getLocation() == tiFighter.getLocation()) {
-							System.out.println(pewPew.getShipType().getSimpleName() + "'s Missile has destroyed an NPS");
+							System.out.println(pewPew.getShipType() + "'s Missile has destroyed an NPS");
 							store.remove(pewPew);
 							store.remove(tiFighter);
-							if(pewPew.getShipType().getSimpleName() == "PlayerShip") {
+							if(pewPew.getShipType() instanceof PlayerShip) {
 								this.playerScore += 50;
 								System.out.println("+50 points");
 							}
@@ -314,7 +312,6 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	//TODO Currently destroys a random Missile and the PS. Make it destroy "close" missile and PS
-	@SuppressWarnings("deprecation")
 	public void explodedPS() {
 		for (int i=0; i<store.size(); i++) {
 			if(store.elementAt(i) instanceof Missile) {
@@ -323,7 +320,7 @@ public class GameWorld extends Observable implements IGameWorld{
 					if(store.elementAt(j) instanceof PlayerShip) {
 						PlayerShip mFalcon = (PlayerShip) store.get(j);
 						//if(pewPew.getLocation() == mFalcon.getLocation()) {
-							System.out.println(pewPew.getShipType().getSimpleName() + "'s Missile has hit the PS");
+							System.out.println(pewPew.getShipType() + "'s Missile has hit the PS");
 							store.remove(pewPew);
 							this.numLives -= 1;
 							if(this.numLives == 0) {
@@ -442,7 +439,6 @@ public class GameWorld extends Observable implements IGameWorld{
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	public void tick() {
 		this.elapsedGameTime += 1;
 		System.out.println("elapsed game time: " + this.elapsedGameTime);
@@ -454,7 +450,7 @@ public class GameWorld extends Observable implements IGameWorld{
 					Missile pewPew = (Missile) moveR;
 					pewPew.decrementFuelLevel();
 					if (pewPew.getFuelLevel() == 0) {
-						System.out.println(pewPew.getShipType().getSimpleName() + "'s Missile is out of fuel. Cya");
+						System.out.println(pewPew.getShipType() + "'s Missile is out of fuel. Cya");
 						store.remove(pewPew);
 						i--;
 					}
