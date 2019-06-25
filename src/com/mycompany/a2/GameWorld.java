@@ -435,7 +435,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			GameObject tempObj = (GameObject) theElements.getNext();
 			if (tempObj.getRemoveFlag() == true)
 			{
-				theElements.remove();
+				theElements.remove(tempObj);
 			}
 		}
 	}
