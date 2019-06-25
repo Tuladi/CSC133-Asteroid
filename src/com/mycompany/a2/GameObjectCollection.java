@@ -42,7 +42,7 @@ public class GameObjectCollection implements ICollection {
 		}
 
 		@Override
-		public void remove(Object obj) {
+		public void remove(GameObject obj) {
 			// TODO Auto-generated method stub
 			store.remove(obj);
 			

@@ -229,12 +229,12 @@ public class GameWorld extends Observable implements IGameWorld{
 						//if(pewPew.getLocation() == roid.getLocation()) {
 							System.out.println(pewPew.getShipType() + "'s Missile has destroyed an Asteroid");
 							//store.remove(pewPew);
-							pewPew.removeFlag();
-							roid.removeFlag();
 							if(pewPew.getShipType() instanceof PlayerShip) {
 								this.playerScore += 10;
 								System.out.println("+10 points");
 							}
+							it1.remove(pewPew);
+							it1.remove(roid);
 							setChanged();
 							notifyObservers();
 							return;
@@ -425,19 +425,6 @@ public class GameWorld extends Observable implements IGameWorld{
 		}
 		setChanged();
 		notifyObservers();
-	}
-	
-	public void removeFlaggedObjects()
-	{
-		IIterator theElements = gwc.getIterator();
-		while(theElements.hasNext())
-		{
-			GameObject tempObj = (GameObject) theElements.getNext();
-			if (tempObj.getRemoveFlag() == true)
-			{
-				theElements.remove(tempObj);
-			}
-		}
 	}
 	
 	public void toggleSound() {
