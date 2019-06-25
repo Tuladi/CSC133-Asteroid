@@ -42,19 +42,20 @@ import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent; 
 
 public class Game extends Form {
-	private GameWorld gw;
+	private final GameWorld gw = new GameWorld();
+	private GameWorldProxy gwp;
 	private MapView mv;
 	private PointsView pv;
 	private GameObjectCollection GameCollection;
 	Toolbar toolBar = new Toolbar();
 	
 	public Game() {
-		gw = new GameWorld();
+		gwp = new GameWorldProxy(gw);
 		mv = new MapView();
 		pv = new PointsView();
 		GameCollection = new GameObjectCollection();
 		
-		gw.init();
+		//gw.init();
 		gw.addObserver(mv);
 		gw.addObserver(pv);
 		

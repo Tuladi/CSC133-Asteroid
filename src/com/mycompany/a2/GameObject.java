@@ -58,16 +58,6 @@ public abstract class GameObject {
 		this.color = c;
 	}
 	
-	public void removeFlag()
-	{
-		this.remove = true;
-	}
-	
-	public boolean getRemoveFlag()
-	{
-		return this.remove;
-	}
-	
 	@Override
 	public String toString()
 	{

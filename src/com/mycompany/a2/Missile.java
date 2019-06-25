@@ -38,7 +38,6 @@ public class Missile extends MoveableGameObject{
 	}
 	
 	public Ship getShipType() {
-		//TODO Make sure this works
 		return this.owner;
 	}
 	

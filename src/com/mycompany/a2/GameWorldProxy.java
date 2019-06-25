@@ -8,9 +8,10 @@ public class GameWorldProxy extends Observable implements IGameWorld{
 	public GameWorldProxy (GameWorld gw)
 	{ 
 		realGameWorld = gw; 
+		gw.init();
 	}
 	
-	public Iterator getIterator ()
+	public IIterator getIterator ()
 	{ 
 		return realGameWorld.getIterator(); 
 	}
