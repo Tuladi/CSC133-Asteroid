@@ -248,16 +248,20 @@ public class GameWorld extends Observable implements IGameWorld{
 	//TODO Currently destroys a random missile and random NPS. Make it destroy "Close" missiles and NPS
 	public void missileHitNPS()
 	{
-		for (int i=0; i<store.size(); i++) {
-			if(store.elementAt(i) instanceof Missile) {
-				Missile pewPew = (Missile) store.get(i);
-				for(int j=0; j<store.size(); j++) {
-					if(store.elementAt(j) instanceof NonPlayerShip) {
-						NonPlayerShip tiFighter = (NonPlayerShip) store.get(j);
+		IIterator it1 = gwc.getIterator();
+		IIterator it2 = gwc.getIterator();
+		while(it1.hasNext()) {
+			GameObject tempObj = (GameObject) it1.getNext();
+			if(tempObj instanceof Missile) {
+				Missile pewPew = (Missile) tempObj;
+				while(it2.hasNext()) {
+					GameObject tempObj2 = (GameObject) it2.getNext();
+					if(tempObj2 instanceof NonPlayerShip) {
+						NonPlayerShip tiFighter = (NonPlayerShip) tempObj2;
 						//if(pewPew.getLocation() == tiFighter.getLocation()) {
 							System.out.println(pewPew.getShipType() + "'s Missile has destroyed an NPS");
-							store.remove(pewPew);
-							store.remove(tiFighter);
+							it1.remove(pewPew);
+							it1.remove(tiFighter);
 							if(pewPew.getShipType() instanceof PlayerShip) {
 								this.playerScore += 50;
 								System.out.println("+50 points");
@@ -274,25 +278,25 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	//TODO Currently destroys a random Missile and the PS. Make it destroy "close" missile and PS
 	public void explodedPS() {
-		for (int i=0; i<store.size(); i++) {
-			if(store.elementAt(i) instanceof Missile) {
-				Missile pewPew = (Missile) store.get(i);
-				for(int j=0; j<store.size(); j++) {
-					if(store.elementAt(j) instanceof PlayerShip) {
-						PlayerShip mFalcon = (PlayerShip) store.get(j);
-						//if(pewPew.getLocation() == mFalcon.getLocation()) {
-							System.out.println(pewPew.getShipType() + "'s Missile has hit the PS");
-							store.remove(pewPew);
-							this.numLives -= 1;
-							if(this.numLives == 0) {
-								System.out.println("Player Ship destroyed");
-								store.remove(mFalcon);
-							}
-							setChanged();
-							notifyObservers();
-							return;
-						//}
+		IIterator it1 = gwc.getIterator();
+		IIterator it2 = gwc.getIterator();
+		while(it1.hasNext()) {
+			GameObject tempObj = (GameObject) it1.getNext();
+			if(tempObj instanceof Missile) {
+				Missile pewPew = (Missile) tempObj;
+				while(it2.hasNext()) {
+					//if(pewPew.getLocation() == mFalcon.getLocation()) {
+					System.out.println(pewPew.getShipType() + "'s Missile has hit the PS");
+					it1.remove(pewPew);
+					this.numLives -= 1;
+					if(this.numLives == 0) {
+						System.out.println("Player Ship destroyed");
+						it1.remove(PlayerShip.getPlayerShip());
 					}
+					setChanged();
+					notifyObservers();
+					return;
+					//}
 				}
 			}
 		}
@@ -301,55 +305,57 @@ public class GameWorld extends Observable implements IGameWorld{
 	//TODO Currently destroys a random Asteroid and the PS. Make it destroy "close" Asteroid and PS
 	public void asteroidHitPS()
 	{
-		for (int i=0; i<store.size(); i++) {
-			if(store.elementAt(i) instanceof Asteroid) {
-				Asteroid roid = (Asteroid) store.get(i);
-				for(int j=0; j<store.size(); j++) {
-					if(store.elementAt(j) instanceof PlayerShip) {
-						PlayerShip mFalcon = (PlayerShip) store.get(j);
-						//if(roid.getLocation() == mFalcon.getLocation()) {
-							System.out.println("Let me guess, never tell you the odds?");
-							store.remove(roid);
-							this.playerScore += 10;
-							System.out.println("+10 points");
-							this.numLives -= 1;
-							if(this.numLives == 0) {
-								System.out.println("Player Ship destroyed");
-								store.remove(mFalcon);
-							}
-							setChanged();
-							notifyObservers();
-							return;
-						//}
+		IIterator it1 = gwc.getIterator();
+		IIterator it2 = gwc.getIterator();
+		while(it1.hasNext()) {
+			GameObject tempObj = (GameObject) it1.getNext();
+			if(tempObj instanceof Asteroid) {
+				Asteroid roid = (Asteroid) tempObj;
+				while(it2.hasNext()) {
+				    //if(roid.getLocation() == mFalcon.getLocation()) {
+					//System.out.println("Let me guess, never tell you the odds?");
+					it1.remove(roid);
+					this.playerScore += 10;
+					System.out.println("+10 points");
+					this.numLives -= 1;
+					if(this.numLives == 0) {
+						System.out.println("Player Ship destroyed");
+						it1.remove(PlayerShip.getPlayerShip());
 					}
+					setChanged();
+					notifyObservers();
+					return;
+					//}
+					
 				}
 			}
 		}
 	}
 	
 	//TODO Currently destroys a random NPS and the PS. Make it destroy "close" NPS and PS
-	public void npsHitPS() {
-		for (int i=0; i<store.size(); i++) {
-			if(store.elementAt(i) instanceof NonPlayerShip) {
-				NonPlayerShip tiFighter = (NonPlayerShip) store.get(i);
-				for(int j=0; j<store.size(); j++) {
-					if(store.elementAt(j) instanceof PlayerShip) {
-						PlayerShip mFalcon = (PlayerShip) store.get(j);
-						//if(tiFighter.getLocation() == mFalcon.getLocation()) {
-							System.out.println("Careful with the kamikazes");
-							store.remove(tiFighter);
-							this.numLives -= 1;
-							this.playerScore += 50;
-							System.out.println("+50 points");
-							if(this.numLives == 0) {
-								System.out.println("Player Ship destroyed");
-								store.remove(mFalcon);
-							}
-							setChanged();
-							notifyObservers();
-							return;
-						//}
+	public void npsHitPS() 
+	{
+		IIterator it1 = gwc.getIterator();
+		IIterator it2 = gwc.getIterator();
+		while(it1.hasNext()) {
+			GameObject tempObj = (GameObject) it1.getNext();
+			if(tempObj instanceof NonPlayerShip) {
+				NonPlayerShip tiFighter = (NonPlayerShip) tempObj;
+				while(it2.hasNext()) {
+					//if(tiFighter.getLocation() == mFalcon.getLocation()) {
+					System.out.println("Careful with the kamikazes");
+					it1.remove(tiFighter);
+					this.numLives -= 1;
+					this.playerScore += 50;
+					System.out.println("+50 points");
+					if(this.numLives == 0) {
+						System.out.println("Player Ship destroyed");
+						it1.remove(PlayerShip.getPlayerShip());
 					}
+					setChanged();
+					notifyObservers();
+					return;
+					//}
 				}
 			}
 		}
@@ -358,16 +364,21 @@ public class GameWorld extends Observable implements IGameWorld{
 	//TODO currently destroys two random Asteroids. Make it destroy "close" Asteroids
 	public void asteroidHitAsteroid()
 	{
-		for (int i=0; i<store.size(); i++) {
-			if(store.elementAt(i) instanceof Asteroid) {
-				Asteroid roid = (Asteroid) store.get(i);
-				for(int j=i + 1; j<store.size(); j++) {
-					if(store.elementAt(j) instanceof Asteroid) {
-						Asteroid roid2 = (Asteroid) store.get(j);
+		IIterator it1 = gwc.getIterator();
+		IIterator it2 = gwc.getIterator();
+		IIterator it3 = gwc.getIterator();
+		while(it3.hasNext()) {
+			GameObject tempObj = (GameObject) it3.getNext();
+			if(tempObj instanceof Asteroid) {
+				Asteroid roid = (Asteroid) tempObj;
+				while(it2.hasNext()) {
+					GameObject tempObj2 = (GameObject) it2.getNext();
+					if(tempObj2 instanceof Asteroid) {
+						Asteroid roid2 = (Asteroid) tempObj2;
 						//if(roid.getLocation() == roid2.getLocation()) {
 							System.out.println("Two Asteroids collided");
-							store.remove(roid);
-							store.remove(roid2);
+							it1.remove(roid);
+							it1.remove(roid2);
 							setChanged();
 							notifyObservers();
 							return;
@@ -380,16 +391,20 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	//TODO currently destroys a random Asteroid and random NPS. Make it destroy "close" Asteroid and NPS
 	public void asteroidHitNPS() {
-		for (int i=0; i<store.size(); i++) {
-			if(store.elementAt(i) instanceof Asteroid) {
-				Asteroid roid = (Asteroid) store.get(i);
-				for(int j=0; j<store.size(); j++) {
-					if(store.elementAt(j) instanceof NonPlayerShip) {
-						NonPlayerShip tiFighter = (NonPlayerShip) store.get(j);
+		IIterator it1 = gwc.getIterator();
+		IIterator it2 = gwc.getIterator();
+		while(it1.hasNext()) {
+			GameObject tempObj = (GameObject) it1.getNext();
+			if(tempObj instanceof Asteroid) {
+				Asteroid roid = (Asteroid) tempObj;
+				while(it2.hasNext()) {
+					GameObject tempObj2 = (GameObject) it2.getNext();
+					if(tempObj2 instanceof NonPlayerShip) {
+						NonPlayerShip tiFighter = (NonPlayerShip) tempObj2;
 						//if(roid.getLocation() == tiFighter.getLocation()) {
 							System.out.println("An Asteroid collided with an NPS");
-							store.remove(roid);
-							store.remove(tiFighter);
+							it1.remove(roid);
+							it1.remove(tiFighter);
 							setChanged();
 							notifyObservers();
 							return;
@@ -401,24 +416,26 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void tick() {
+		IIterator it1 = gwc.getIterator();
+		IIterator it2 = gwc.getIterator();
 		this.elapsedGameTime += 1;
 		System.out.println("elapsed game time: " + this.elapsedGameTime);
-		for(int i=0; i<store.size(); i++){
-			if(store.elementAt(i) instanceof MoveableGameObject) {
-				MoveableGameObject moveR = (MoveableGameObject) store.get(i);
+		while(it1.hasNext()) {
+			GameObject tempObj = (GameObject) it1.getNext();
+			if(tempObj instanceof MoveableGameObject) {
+				MoveableGameObject moveR = (MoveableGameObject) tempObj;
 				moveR.move();
 				if(moveR instanceof Missile) {
 					Missile pewPew = (Missile) moveR;
 					pewPew.decrementFuelLevel();
 					if (pewPew.getFuelLevel() == 0) {
 						System.out.println(pewPew.getShipType() + "'s Missile is out of fuel. Cya");
-						store.remove(pewPew);
-						i--;
+						it2.remove(pewPew);
 					}
 				}
 			}
-			else if(store.elementAt(i) instanceof SpaceStation) {
-				SpaceStation deathStar = (SpaceStation) store.get(i);
+			else if(tempObj instanceof SpaceStation) {
+				SpaceStation deathStar = (SpaceStation) tempObj;
 				if((this.elapsedGameTime % deathStar.getBlinkRate()) == 0)
 					deathStar.toggleLight();
 			}
