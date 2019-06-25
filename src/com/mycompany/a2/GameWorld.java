@@ -429,13 +429,13 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void removeFlaggedObjects()
 	{
-		IIterator theElements = gwc.
+		IIterator theElements = gwc.getIterator();
 		while(theElements.hasNext())
 		{
 			GameObject tempObj = (GameObject) theElements.getNext();
 			if (tempObj.getRemoveFlag() == true)
 			{
-				
+				theElements.remove();
 			}
 		}
 	}
