@@ -29,7 +29,7 @@ public class PointsView extends Container implements Observer {
 		pNMissileLabel = new Label("10");
 		pNLivesLabel = new Label("3");
 		pNSoundLabel = new Label("ON");
-		pNTimeLabel = new Label("0");
+		pNTimeLabel = new Label("000");
 		
 		//Colors
 		pTextLabel.getAllStyles().setFgColor(ColorUtil.BLACK);

@@ -1,5 +1,6 @@
 package com.mycompany.a2;
 import java.util.Vector;
+import java.util.Iterator;
 
 public class GameObjectCollection implements ICollection {
 	private Vector<GameObject> store;
@@ -40,5 +41,16 @@ public class GameObjectCollection implements ICollection {
 			currElementIndex++;
 			return(store.elementAt(currElementIndex));
 		}
+		
+		public void removeObject()
+		{
+			store.remove(currElementIndex);
+		}
 	}
+	
+	public void setElementAt(GameObject go, int i)
+	{
+		store.setElementAt(go, i);
+	}
+
 }

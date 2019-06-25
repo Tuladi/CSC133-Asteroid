@@ -12,6 +12,7 @@ import java.util.Random;
 public abstract class GameObject {
 	private Point2D location = new Point2D(0, 0);
 	private int color;
+	private boolean remove = false;
 	protected static final Random R = new Random();
 	
 	/*
@@ -55,6 +56,16 @@ public abstract class GameObject {
 	public void setColor(int c)
 	{
 		this.color = c;
+	}
+	
+	public void removeFlag()
+	{
+		this.remove = true;
+	}
+	
+	public boolean getRemoveFlag()
+	{
+		return this.remove;
 	}
 	
 	@Override
