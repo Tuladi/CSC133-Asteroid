@@ -4,6 +4,8 @@
  */
 
 package com.mycompany.a2;
+import java.util.Vector;
+
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Button;
 import com.codename1.ui.CheckBox;
@@ -167,7 +169,8 @@ public class Game extends Form {
 	}
 	
 	private void mapArea() {
-		Container mapArea = new Container(new GridLayout(5, 5));
+		final Vector<GeometricShapes> worldShapes = new Vector<GeometricShapes>();
+		Container mapArea = new CustomContainer(worldShapes);
 		
 		mapArea.getAllStyles().setBgTransparency(255);
 		mapArea.getAllStyles().setPadding(TOP, 5);
