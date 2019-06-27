@@ -12,6 +12,7 @@ import java.util.Vector;
 public class GameWorld extends Observable implements IGameWorld{
 	private Random random = new Random();
 	private Vector<GameObject> store = new Vector<GameObject>();
+	Vector<GeometricShapes> worldShapes;
 	private GameObjectCollection gwc = new GameObjectCollection();
 	private GameWorldProxy gwp = new GameWorldProxy(this);
 	private int numLives;
