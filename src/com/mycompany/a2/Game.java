@@ -53,7 +53,7 @@ public class Game extends Form {
 	
 	public Game() {
 		gwp = new GameWorldProxy(gw);
-		mv = new MapView();
+		mv = new MapView(gw.getWorldShapes());
 		pv = new PointsView();
 		GameCollection = new GameObjectCollection();
 		
@@ -173,7 +173,7 @@ public class Game extends Form {
 	}
 	
 	private void mapArea() {
-		Container mapArea = new CustomContainer(gw.getWorldShapes());
+		Container mapArea = mv;
 		
 		mapArea.getAllStyles().setBgTransparency(255);
 		mapArea.getAllStyles().setPadding(TOP, 5);

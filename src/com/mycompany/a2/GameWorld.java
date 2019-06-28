@@ -13,7 +13,7 @@ import com.mycompany.a2.graphics.AsteroidShape;
 public class GameWorld extends Observable implements IGameWorld{
 	private Random random = new Random();
 	private Vector<GameObject> store = new Vector<GameObject>();
-	private Vector<GeometricShapes> worldShapes;
+	private Vector<GeometricShapes> worldShapes = new Vector<GeometricShapes>();
 	private GameObjectCollection gwc = new GameObjectCollection();
 	private GameWorldProxy gwp = new GameWorldProxy(this);
 	private int numLives;
