@@ -72,18 +72,22 @@ public class Game extends Form {
 		//PS Speed (+)
 		IncreasePSSpeed myIncreasePSSpeedCmd = new IncreasePSSpeed(gw);
 		addKeyListener(-91, myIncreasePSSpeedCmd);
+		addKeyListener('i', myIncreasePSSpeedCmd);
 		
 		//PS Speed (-)
 		DecreasePSSpeed myDecreasePSSpeedCmd = new DecreasePSSpeed(gw);
 		addKeyListener(-92, myDecreasePSSpeedCmd);
+		addKeyListener('d', myDecreasePSSpeedCmd);
 		
 		//PS Left
 		SteerPSLeft mySteerPSLeftCmd = new SteerPSLeft(gw);
 		addKeyListener(-93, mySteerPSLeftCmd);
+		addKeyListener('l', mySteerPSLeftCmd);
 		
 		//PS Right
 		SteerPSRight mySteerPSRightCmd = new SteerPSRight(gw);
 		addKeyListener(-94, mySteerPSRightCmd);
+		addKeyListener('r', mySteerPSRightCmd);
 		
 		//MSL Left
 		SteerPSMLLeft mySteerPSMLLeftCmd = new SteerPSMLLeft(gw);
