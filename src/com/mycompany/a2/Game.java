@@ -173,8 +173,7 @@ public class Game extends Form {
 	}
 	
 	private void mapArea() {
-		final Vector<GeometricShapes> worldShapes = new Vector<GeometricShapes>();
-		Container mapArea = new CustomContainer(worldShapes);
+		Container mapArea = new CustomContainer(gw.getWorldShapes());
 		
 		mapArea.getAllStyles().setBgTransparency(255);
 		mapArea.getAllStyles().setPadding(TOP, 5);

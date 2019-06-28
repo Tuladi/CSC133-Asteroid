@@ -8,11 +8,12 @@ package com.mycompany.a2;
 import java.util.Observable;
 import java.util.Random;
 import java.util.Vector;
+import com.mycompany.a2.graphics.AsteroidShape;
 
 public class GameWorld extends Observable implements IGameWorld{
 	private Random random = new Random();
 	private Vector<GameObject> store = new Vector<GameObject>();
-	Vector<GeometricShapes> worldShapes;
+	private Vector<GeometricShapes> worldShapes;
 	private GameObjectCollection gwc = new GameObjectCollection();
 	private GameWorldProxy gwp = new GameWorldProxy(this);
 	private int numLives;
@@ -36,6 +37,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void addNewAsteroid() {
 		Asteroid roid = new Asteroid(random.nextInt(25) + 6);
 		gwp.addGameObject(roid);
+		worldShapes.addElement(new AsteroidShape(roid));
 		setChanged();
 		notifyObservers();
 	}
@@ -546,6 +548,9 @@ public class GameWorld extends Observable implements IGameWorld{
 		if (this.sound == true)
 			return "ON";
 		else { return "OFF"; }
+	}
+	public Vector<GeometricShapes> getWorldShapes(){
+		return this.worldShapes;
 	}
 	
 	

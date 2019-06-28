@@ -5,6 +5,6 @@ import com.codename1.ui.Graphics;
 
 abstract public class GeometricShapes {
 	public abstract void draw(Graphics g, Point pCmpRelPrnt);
-	public abstract boolean contains(Point pPtrRelPrnt, Point pCmpRelPrnt);
+	public abstract void update();
 }
 

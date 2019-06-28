@@ -42,9 +42,9 @@ public abstract class GameObject {
 		return this.location.getY();
 	}
 	
-	public String getColor()
+	public int getColor()
 	{
-		return Integer.toString(this.color);
+		return this.color;
 	}
 	
 	public void setLocation(double X, double Y)
