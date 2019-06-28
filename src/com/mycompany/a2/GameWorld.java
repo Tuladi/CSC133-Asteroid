@@ -527,6 +527,14 @@ public class GameWorld extends Observable implements IGameWorld{
 		notifyObservers();
 	}
 	
+	public double getWidth() {
+		return this.width;
+	}
+	
+	public double getLength() {
+		return this.length;
+	}
+	
 	public int getPlayerScore () 
 	{
 		return this.playerScore;

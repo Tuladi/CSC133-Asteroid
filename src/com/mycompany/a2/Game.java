@@ -175,6 +175,8 @@ public class Game extends Form {
 	private void mapArea() {
 		Container mapArea = mv;
 		
+		mapArea.setWidth((int) gw.getWidth());
+		mapArea.setHeight((int) gw.getLength());
 		mapArea.getAllStyles().setBgTransparency(255);
 		mapArea.getAllStyles().setPadding(TOP, 5);
 		mapArea.getAllStyles().setPadding(BOTTOM, 5);
