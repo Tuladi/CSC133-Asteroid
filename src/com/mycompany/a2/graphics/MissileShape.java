@@ -11,17 +11,25 @@ public class MissileShape extends GeometricShapes {
 	private double iY;
 	private int iShapeX;
 	private int iShapeY;
-	private int size;
+	private int direction;
 	private int color;
 
 	public MissileShape(Missile pewPew) {
 		this.pewPew = pewPew;
+		this.iX = this.pewPew.getLocationX();
+		this.iY = this.pewPew.getLocationY();
+		this.color = this.pewPew.getColor();
+		this.direction = 90 - this.pewPew.getDirection();
 	}
 
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
-		// TODO Auto-generated method stub
-		
+		g.setColor(this.color);
+		this.iShapeX = (int) Math.round(pCmpRelPrnt.getX() + (float) this.iX);
+		this.iShapeY = (int) Math.round(pCmpRelPrnt.getY() + (float) this.iY);
+		g.rotateRadians((float) Math.toRadians((double) this.direction), this.iShapeX, this.iShapeY);
+		g.fillRect(this.iShapeX, this.iShapeY, this.pewPew.getSize()/2, this.pewPew.getSize());
+		g.rotateRadians((float) -Math.toRadians((double) this.direction), this.iShapeX, this.iShapeY);
 	}
 
 	@Override

@@ -524,14 +524,16 @@ public class GameWorld extends Observable implements IGameWorld{
 			GameObject tempObj = (GameObject) it1.getNext();
 			if(tempObj instanceof MoveableGameObject) {
 				MoveableGameObject moveR = (MoveableGameObject) tempObj;
-				moveR.move();
+				moveR.move(this.width, this.length);
 				if(moveR instanceof Missile) {
 					Missile pewPew = (Missile) moveR;
 					pewPew.decrementFuelLevel();
 					if (pewPew.getFuelLevel() == 0) {
-						System.out.println(pewPew.getShipType() + "'s Missile is out of fuel. Cya");
+						System.out.println(pewPew.getShipType().getClass().getSimpleName() + "'s Missile is out of fuel. Cya");
 						this.worldShapes.removeElement(new MissileShape(pewPew));
 						it2.remove(pewPew);
+						//reset the iterator-loop so we get all missiles in the same tick call
+						it1 = gwp.getIterator();
 					}
 				}
 			}

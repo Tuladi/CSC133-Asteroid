@@ -11,6 +11,7 @@ public class PlayerShip extends Ship implements ISteerable{
 	private SteerableMissileLauncher launcher = new SteerableMissileLauncher(0);
 	private static final int maxMissiles = 10;
 	private static PlayerShip mFalcon;
+	private int size = 30;
 	/*
 	 * The player ship must be spawned in the middle of the map, facing north
 	 * and with an initial speed of 0, so we declare those here to over-write
@@ -46,6 +47,10 @@ public class PlayerShip extends Ship implements ISteerable{
 		launcher.turnLeft();
 	}
 	
+	public SteerableMissileLauncher getML() {
+		return launcher;
+	}
+	
 	@Override
 	public void turnLeft() {
 		if (this.getDirection() > 0)
@@ -68,6 +73,11 @@ public class PlayerShip extends Ship implements ISteerable{
 	@Override
 	public int getDirectionML() {
 		return launcher.getDirection();
+	}
+	
+	@Override
+	public void setDirectionML(int direction) {
+		launcher.setDirection(direction);
 	}
 	
 	@Override

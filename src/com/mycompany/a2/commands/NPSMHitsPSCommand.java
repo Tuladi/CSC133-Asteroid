@@ -17,6 +17,6 @@ public class NPSMHitsPSCommand extends Command {
 	public void actionPerformed(ActionEvent e)
 	{
 		gw.explodedPS();
-		System.out.println("NPS Missile Hit PS command is invoked");
+		System.out.println("Missile Hit PS command is invoked");
 	}
 }

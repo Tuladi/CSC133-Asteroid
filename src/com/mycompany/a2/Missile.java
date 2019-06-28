@@ -12,6 +12,7 @@ public class Missile extends MoveableGameObject{
 	
 	private int fuelLevel = 15;
 	private Ship owner;
+	private int size = 16;
 	
 	/*
 	 * Construct the missile by assigning its color, its owner
@@ -21,8 +22,8 @@ public class Missile extends MoveableGameObject{
 	 * ship's location
 	 */
 	public Missile(Ship ship) {
-		super();
-		this.setColor(ColorUtil.GRAY);
+		super(/*size:*/16);
+		this.setColor(ColorUtil.rgb(255, 0, 0));
 		this.owner = ship;
 		try {
 			this.setDirection(ship.getDirectionML());

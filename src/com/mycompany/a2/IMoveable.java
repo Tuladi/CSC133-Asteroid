@@ -9,6 +9,5 @@
 package com.mycompany.a2;
 
 public interface IMoveable {
-	abstract public void move();
-
+	abstract public void move(double width, double height);
 }

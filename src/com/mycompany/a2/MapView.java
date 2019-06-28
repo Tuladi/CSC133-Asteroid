@@ -8,6 +8,7 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.layouts.BoxLayout;
+import com.mycompany.a2.graphics.SpaceStationShape;
 
 public class MapView extends Container implements Observer{
 	

@@ -12,7 +12,7 @@ import com.codename1.charts.util.ColorUtil;
 public class MissileLauncher extends MoveableGameObject{
 
 	public MissileLauncher(int d) {
-		super();
+		super(/*size:*/8);
 		this.setColor(ColorUtil.YELLOW);
 		this.setDirection(d);
 	}

@@ -17,6 +17,6 @@ public class PSMHitsAsteroidCommand extends Command {
 	public void actionPerformed(ActionEvent e)
 	{
 		gw.missileHitAsteroid();
-		System.out.println("PS Missile Hit Asteroid command is invoked");
+		System.out.println("Missile Hit Asteroid command is invoked");
 	}
 }

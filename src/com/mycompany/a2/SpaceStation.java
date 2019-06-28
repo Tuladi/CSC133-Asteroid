@@ -29,6 +29,10 @@ public class SpaceStation extends FixedGameObject{
 		System.out.println("Turning Space Station " + this.getID() + " light " + s);
 	}
 	
+	public boolean isLightOn() {
+		return this.lightOn;
+	}
+	
 	public int getBlinkRate() {
 		return this.blinkRate;
 	}

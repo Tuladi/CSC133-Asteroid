@@ -31,7 +31,7 @@ public class GameObjectCollection implements ICollection {
 		public boolean hasNext() {
 			if (store.size() <= 0)
 				return false;
-			if (currElementIndex == store.size() - 1)
+			else if (currElementIndex >= store.size() - 1)
 				return false;
 			return true;
 		}

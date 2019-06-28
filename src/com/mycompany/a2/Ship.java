@@ -17,7 +17,7 @@ public abstract class Ship extends MoveableGameObject{
 	 */
 	public Ship (int missileCount)
 	{
-		super();
+		super(/*size:*/200);
 		this.missileCount = missileCount;
 	}
 	
@@ -59,6 +59,13 @@ public abstract class Ship extends MoveableGameObject{
 		throw new Exception("getDirectionML not implemented for this object");
 	}
 	
+	/*Throw an exception as this method should always be over-ridden by
+	 *sub-class methods. If it isn't over-ridden, we have
+	 *a problem, as someone initialized an incomplete sub-class.*/
+	public void setDirectionML(int i) throws Exception{
+		throw new Exception("setDirectionML not implemented for this object");
+	}
+	
 	@Override
 	public String toString()
 	{
@@ -66,4 +73,5 @@ public abstract class Ship extends MoveableGameObject{
 		String myDesc = " missles=" + this.missileCount;
 		return parentDesc + myDesc;
 	}
+
 }

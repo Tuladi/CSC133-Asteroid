@@ -19,7 +19,7 @@ public class NonPlayerShip extends Ship{
 	 */
 	public NonPlayerShip() {
 		super(maxMissiles);
-		this.setColor(ColorUtil.GREEN);
+		this.setColor(ColorUtil.BLACK);
 		if (R.nextInt(2) == 1) {
 			this.size = 15;
 		}
@@ -35,6 +35,11 @@ public class NonPlayerShip extends Ship{
 	@Override
 	public int getDirectionML() {
 		return launcher.getDirection();
+	}
+	
+	@Override
+	public void setDirectionML(int direction) {
+		launcher.setDirection(direction);
 	}
 	
 	@Override

@@ -11,7 +11,6 @@ import com.codename1.charts.util.ColorUtil;
 //Asteroid is a concrete class of MoveableGameObject
 
 public class Asteroid extends MoveableGameObject {
-	private int size;
 	
 	/*
 	 * Construct the asteroid as a MoveableGameObject
@@ -20,21 +19,15 @@ public class Asteroid extends MoveableGameObject {
 	 */
 	public Asteroid(int size)
 	{
-		super();
+		super(size);
 		this.setColor(ColorUtil.BLACK);
-		this.size = size;
-	}
-	
-	public int getSize()
-	{
-		return this.size;
 	}
 	
 	@Override
 	public String toString()
 	{
 		String parentDesc = super.toString();
-		String myDesc = " size=" + this.size;
+		String myDesc = " size=" + this.getSize();
 		return parentDesc + myDesc;
 	}
 }
