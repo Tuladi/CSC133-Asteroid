@@ -9,6 +9,10 @@ import java.util.Observable;
 import java.util.Random;
 import java.util.Vector;
 import com.mycompany.a2.graphics.AsteroidShape;
+import com.mycompany.a2.graphics.MissileShape;
+import com.mycompany.a2.graphics.NonPlayerShipShape;
+import com.mycompany.a2.graphics.PlayerShipShape;
+import com.mycompany.a2.graphics.SpaceStationShape;
 
 public class GameWorld extends Observable implements IGameWorld{
 	private Random random = new Random();
@@ -51,6 +55,7 @@ public class GameWorld extends Observable implements IGameWorld{
 				throw new Exception("Error: There is already a playership!");
 		}
 		gwp.addGameObject(PlayerShip.getPlayerShip());
+		worldShapes.addElement(new PlayerShipShape(PlayerShip.getPlayerShip()));
 		setChanged();
 		notifyObservers();
 	}
@@ -59,6 +64,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void addNonPlayerShip() {
 		NonPlayerShip tiFighter = new NonPlayerShip();
 		gwp.addGameObject(tiFighter);
+		worldShapes.addElement(new NonPlayerShipShape(tiFighter));
 		setChanged();
 		notifyObservers();
 	}
@@ -66,6 +72,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void addSpaceStation() {
 		SpaceStation deathStar = new SpaceStation();
 		gwp.addGameObject(deathStar);
+		worldShapes.addElement(new SpaceStationShape(deathStar));
 		setChanged();
 		notifyObservers();
 	}
@@ -82,6 +89,7 @@ public class GameWorld extends Observable implements IGameWorld{
 					mFalcon.decrementMC();
 					this.numPSMissiles = mFalcon.getMC();
 					System.out.println("PS missile fired");
+					worldShapes.addElement(new MissileShape(pewPew));
 					setChanged();
 					notifyObservers();
 					return;
@@ -107,6 +115,7 @@ public class GameWorld extends Observable implements IGameWorld{
 					gwp.addGameObject(pewPew);
 					tiFighter.decrementMC();
 					System.out.println("NPS missile fired");
+					this.worldShapes.addElement(new MissileShape(pewPew));
 					setChanged();
 					notifyObservers();
 					return;
@@ -308,6 +317,8 @@ public class GameWorld extends Observable implements IGameWorld{
 								this.playerScore += 10;
 								System.out.println("+10 points");
 							}
+							this.worldShapes.removeElement(new MissileShape(pewPew));
+							this.worldShapes.removeElement(new AsteroidShape(roid));
 							it1.remove(pewPew);
 							it1.remove(roid);
 							setChanged();
@@ -336,12 +347,14 @@ public class GameWorld extends Observable implements IGameWorld{
 						//if(pewPew.getLocation() == tiFighter.getLocation()) {
 							System.out.println(pewPew.getShipType().getClass().getSimpleName() + 
 									"'s Missile has destroyed an NPS");
-							it1.remove(pewPew);
-							it1.remove(tiFighter);
 							if(pewPew.getShipType() instanceof PlayerShip) {
 								this.playerScore += 50;
 								System.out.println("+50 points");
 							}
+							this.worldShapes.removeElement(new MissileShape(pewPew));
+							this.worldShapes.removeElement(new NonPlayerShipShape(tiFighter));
+							it1.remove(pewPew);
+							it1.remove(tiFighter);
 							setChanged();
 							notifyObservers();
 							return;
@@ -364,10 +377,12 @@ public class GameWorld extends Observable implements IGameWorld{
 					//if(pewPew.getLocation() == mFalcon.getLocation()) {
 					System.out.println(pewPew.getShipType().getClass().getSimpleName() + 
 							"'s Missile has hit the PS");
+					this.worldShapes.removeElement(new MissileShape(pewPew));
 					it1.remove(pewPew);
 					this.numLives -= 1;
 					if(this.numLives == 0) {
 						System.out.println("Player Ship destroyed");
+						this.worldShapes.removeElement(new PlayerShipShape(PlayerShip.getPlayerShip()));
 						it1.remove(PlayerShip.getPlayerShip());
 					}
 					setChanged();
@@ -391,12 +406,14 @@ public class GameWorld extends Observable implements IGameWorld{
 				while(it2.hasNext()) {
 				    //if(roid.getLocation() == mFalcon.getLocation()) {
 						System.out.println("Let me guess, never tell you the odds?");
+						this.worldShapes.removeElement(new AsteroidShape(roid));
 						it1.remove(roid);
 						this.playerScore += 10;
 						System.out.println("+10 points");
 						this.numLives -= 1;
 						if(this.numLives == 0) {
 							System.out.println("Player Ship destroyed");
+							this.worldShapes.removeElement(new PlayerShipShape(PlayerShip.getPlayerShip()));
 							it1.remove(PlayerShip.getPlayerShip());
 						}
 						setChanged();
@@ -421,12 +438,14 @@ public class GameWorld extends Observable implements IGameWorld{
 				while(it2.hasNext()) {
 					//if(tiFighter.getLocation() == mFalcon.getLocation()) {
 						System.out.println("Careful with the kamikazes");
+						this.worldShapes.removeElement(new NonPlayerShipShape(tiFighter));
 						it1.remove(tiFighter);
 						this.numLives -= 1;
 						this.playerScore += 50;
 						System.out.println("+50 points");
 						if(this.numLives == 0) {
 							System.out.println("Player Ship destroyed");
+							this.worldShapes.removeElement(new PlayerShipShape(PlayerShip.getPlayerShip()));
 							it1.remove(PlayerShip.getPlayerShip());
 						}
 						setChanged();
@@ -454,6 +473,8 @@ public class GameWorld extends Observable implements IGameWorld{
 						Asteroid roid2 = (Asteroid) tempObj2;
 						//if(roid.getLocation() == roid2.getLocation()) {
 							System.out.println("Two Asteroids collided");
+							this.worldShapes.removeElement(new AsteroidShape(roid));
+							this.worldShapes.removeElement(new AsteroidShape(roid2));
 							it1.remove(roid);
 							it1.remove(roid2);
 							setChanged();
@@ -480,6 +501,8 @@ public class GameWorld extends Observable implements IGameWorld{
 						NonPlayerShip tiFighter = (NonPlayerShip) tempObj2;
 						//if(roid.getLocation() == tiFighter.getLocation()) {
 							System.out.println("An Asteroid collided with an NPS");
+							this.worldShapes.removeElement(new AsteroidShape(roid));
+							this.worldShapes.removeElement(new NonPlayerShipShape(tiFighter));
 							it1.remove(roid);
 							it1.remove(tiFighter);
 							setChanged();
@@ -507,6 +530,7 @@ public class GameWorld extends Observable implements IGameWorld{
 					pewPew.decrementFuelLevel();
 					if (pewPew.getFuelLevel() == 0) {
 						System.out.println(pewPew.getShipType() + "'s Missile is out of fuel. Cya");
+						this.worldShapes.removeElement(new MissileShape(pewPew));
 						it2.remove(pewPew);
 					}
 				}

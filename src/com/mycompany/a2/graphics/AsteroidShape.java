@@ -26,7 +26,7 @@ public class AsteroidShape extends GeometricShapes{
 		g.setColor(this.color);
 		this.iShapeX = (int) Math.round(pCmpRelPrnt.getX() + (float) this.iX);
 		this.iShapeY = (int) Math.round(pCmpRelPrnt.getY() + (float) this.iY);
-		g.drawArc(this.iShapeX, this.iShapeY, this.size, this.size, 0, 360);
+		g.fillArc(this.iShapeX, this.iShapeY, this.size, this.size, 0, 360);
 	}
 	
 	@Override

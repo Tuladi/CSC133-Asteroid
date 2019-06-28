@@ -23,9 +23,7 @@ public class MapView extends Container implements Observer{
 		
 	}
 	
-	@Override
 	public void update(Observable realObject, Object data) {
-		// TODO Auto-generated method stub
 		GameWorld gw = (GameWorld) realObject;
 		this.drawObjs();
 		gw.printMap();
