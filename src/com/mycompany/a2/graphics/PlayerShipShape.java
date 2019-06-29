@@ -18,6 +18,7 @@ public class PlayerShipShape extends GeometricShapes {
 	private int color;
 	private int colorML;
 	private int direction;
+	private int directionML;
 
 	public PlayerShipShape(PlayerShip playerShip) {
 		this.mFalcon = playerShip;
@@ -27,6 +28,7 @@ public class PlayerShipShape extends GeometricShapes {
 		this.color = this.mFalcon.getColor();
 		this.colorML = this.turret.getColor();
 		this.direction = this.mFalcon.getDirection();
+		this.directionML = turret.getDirection();
 		this.size = this.mFalcon.getSize();
 	}
 
@@ -35,6 +37,8 @@ public class PlayerShipShape extends GeometricShapes {
 		g.setColor(this.color);
 		this.iShapeX = (int) Math.round(pCmpRelPrnt.getX() + (float) this.iX);
 		this.iShapeY = (int) Math.round(pCmpRelPrnt.getY() + (float) this.iY);
+		
+		
 		g.rotateRadians((float) Math.toRadians((double) this.direction), iShapeX, iShapeY);
 		
 		//draw the nose
@@ -53,8 +57,12 @@ public class PlayerShipShape extends GeometricShapes {
 		g.fillArc(iShapeX, iShapeY, size, size, 0, 360);
 		g.fillRect(iShapeX + size*5/6, iShapeY, size/6, size/2);
 		
-		//draw the turret
 		g.rotateRadians((float) -Math.toRadians((double) this.direction), iShapeX, iShapeY);
+		
+		//draw the turret
+		g.rotateRadians((float) Math.toRadians((double) this.directionML), iShapeX, iShapeY);
+		
+		g.rotateRadians((float) -Math.toRadians((double) this.directionML), iShapeX, iShapeY);
 		
 	}
 
