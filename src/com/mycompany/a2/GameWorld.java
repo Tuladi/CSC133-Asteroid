@@ -10,6 +10,8 @@ import java.util.Observer;
 import java.util.Random;
 import java.util.Vector;
 
+import com.codename1.ui.Container;
+
 import Interfaces.IGameWorld;
 import Interfaces.IIterator;
 import Objects.Asteroid;
@@ -20,7 +22,7 @@ import Objects.SpaceStation;
 
 
 public class GameWorld extends Observable implements IGameWorld{
-	private Random random = new Random();
+	private Random random = new Random(); 
 	private GameObjectCollection gwc;
 	
 	private int numLives;
@@ -29,7 +31,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	private int numPSMissiles;
 	
 	private double width;
-	private double length;
+	private double height;
 	
 	private boolean sound;
 	
@@ -39,7 +41,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	{
 		gwc = new GameObjectCollection();
 		width = 1024.0;
-		length = 768.0;
+		height = 768.0;
 	}
 	public void init()
 	{
@@ -235,7 +237,7 @@ public class GameWorld extends Observable implements IGameWorld{
 				PlayerShip mFalcon = (PlayerShip) tempObj;
 				mFalcon.revolveMLLeft();
 				System.out.println("Rotating Missile Launcher Left");
-				setChanged();
+				setChanged(); 
 				notifyObservers(new GameWorldProxy(this));
 				return;
 			}
@@ -565,11 +567,26 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void addGameObject(GameObject o) {
 		gwc.add(o);
 	}
-
+ 
 	@Override
 	public boolean removeGameObject(GameObject o) {
 		gwc.getIterator().remove(o);
 		return false;
 	}
 	
+	public void setDimensions(Container mv)
+	{
+		width = mv.getWidth();
+		height = mv.getHeight();
+	}
+	
+	public double getMVWidth()
+	{
+		return width;
+	}
+	
+	public double getMVHeight()
+	{
+		return height;
+	}
 }

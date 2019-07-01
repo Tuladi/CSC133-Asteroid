@@ -39,7 +39,7 @@ public abstract class MoveableGameObject extends GameObject implements IMoveable
 	{
 		this.direction =  d;
 	}
-	
+	 
 
 	public void move(int elapsedMilliSecs)
 	{

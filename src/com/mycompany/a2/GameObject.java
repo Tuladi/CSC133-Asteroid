@@ -11,7 +11,7 @@ import java.util.Random;
 
 public abstract class GameObject {
 	private Point2D location = new Point2D(0, 0);
-	private int color;
+	private int color; 
 	private boolean remove = false;
 	protected static final Random R = new Random();
 	

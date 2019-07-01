@@ -13,10 +13,10 @@ import com.mycompany.a2.FixedGameObject;
 import Interfaces.IDrawable;
 
 public class SpaceStation extends FixedGameObject implements IDrawable {
-
-	private int blinkRate;
-	private boolean lightOn = false;
 	
+	private double blinkRate;
+	private boolean lightOn = false;
+	private int size = 100;
 	/*
 	 * Upon construction, a space station only needs to have a blink rate and a bool 
 	 * to control whether or not the light is on (it's off by default)
@@ -24,7 +24,8 @@ public class SpaceStation extends FixedGameObject implements IDrawable {
 	public SpaceStation() {
 		super();
 		this.setColor(ColorUtil.LTGRAY);
-		this.blinkRate = R.nextInt(6) + 1;
+		this.blinkRate =  ((double) R.nextInt(6) + 1.0) ;
+
 	}
 	
 	public void toggleLight() {
@@ -34,7 +35,7 @@ public class SpaceStation extends FixedGameObject implements IDrawable {
 		System.out.println("Turning Space Station " + this.getID() + " light " + s);
 	}
 	
-	public int getBlinkRate() {
+	public double getBlinkRate() {
 		return this.blinkRate;
 	}
 	
@@ -51,7 +52,16 @@ public class SpaceStation extends FixedGameObject implements IDrawable {
 		g.setColor(this.getColor());
 		int xLoc = (int) getLocationX();
 		int yLoc = (int) getLocationY();
-		g.fillRect(xLoc, yLoc, 100, 100);
-		//g.fillPolygon(new int[] {10,30,50}, new int[] {100, 50, 100}, 3);
+		//g.fillRect(xLoc, yLoc, 100, 100);
+		if(isSelected()) {
+			g.fillArc(xLoc, yLoc, size, size, 0, 360);
+			g.setColor(ColorUtil.GREEN);
+			g.fillArc(xLoc+size/4, yLoc+size/4, size/2, size/2, 0, 360);
+		}
+		else{
+			g.fillArc(xLoc, yLoc, size, size, 0, 360);
+		}
+		
 	}
+	public boolean isSelected() { return lightOn; }
 }

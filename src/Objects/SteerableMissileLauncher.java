@@ -3,20 +3,22 @@
  * only found on player ships. The player can rotate the SML.
  */
 
-package com.mycompany.a2;
+package Objects;
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
 
+import Interfaces.IDrawable;
 import Interfaces.ISteerable;
-import Objects.MissileLauncher;
  
 /*
  * Initialize the launcher with a direction it inherits from the player
  * ship that initializes it.
  */
-public class SteerableMissileLauncher extends MissileLauncher implements ISteerable{
+public class SteerableMissileLauncher extends MissileLauncher implements ISteerable {
 	public SteerableMissileLauncher(int d) {
 		super(d);
-		this.setColor(ColorUtil.CYAN);
+		this.setColor(ColorUtil.MAGENTA);
 	}
 	
 	@Override
@@ -28,6 +30,5 @@ public class SteerableMissileLauncher extends MissileLauncher implements ISteera
 	public void turnRight() {
 		this.setDirection(this.getDirection() + 1);
 	}
-	
 	
 }

@@ -9,15 +9,16 @@ import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
 import com.mycompany.a2.Ship;
-import com.mycompany.a2.SteerableMissileLauncher;
+import com.mycompany.a2.MapView;
 
 import Interfaces.IDrawable;
 import Interfaces.ISteerable;
 
 public class PlayerShip extends Ship implements ISteerable, IDrawable {
-	private SteerableMissileLauncher launcher = new SteerableMissileLauncher(getDirection()); 
+	private SteerableMissileLauncher launcher  = new SteerableMissileLauncher(180);
 	private static final int maxMissiles = 10;
 	private static PlayerShip mFalcon;
+	
 	/*
 	 * The player ship must be spawned in the middle of the map, facing north
 	 * and with an initial speed of 0, so we declare those here to over-write
@@ -27,12 +28,8 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 		super(maxMissiles);
 		this.setColor(ColorUtil.rgb(255, 0, 0));
 		this.setSpeed(0);
-		this.setDirection(0);
-		this.setLocation(562, 384);
-		/*launcher = new SteerableMissileLauncher(getDirection());
-		launcher.setLocation(getPlayerShip().getLocationX(),getPlayerShip().getLocationY());
-		launcher.setSpeed(getPlayerShip().getSpeed());
-		*/
+		this.setDirection(180);
+		this.setLocation(MapView.getMVWidth()/2, MapView.getMVHeight()/2);
 	}
 	
 	public static PlayerShip getPlayerShip()
@@ -50,11 +47,16 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 	}
 	
 	public void revolveMLRight() {
-		launcher.turnRight();
+		if (launcher.getDirection() > 0)
+			launcher.setDirection(launcher.getDirection() - 10);
+		else {
+			launcher.setDirection(359);
+		}
 	}
 	
+	
 	public void revolveMLLeft() {
-		launcher.turnLeft();
+		launcher.setDirection((launcher.getDirection() + 10) %360);
 	}
 	
 	@Override
@@ -84,15 +86,14 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 	@Override
 	public String toString() {
 		String parentDesc = super.toString();
-		String myDesc = " Missle launcher dir=" + this.getDirectionML();
+		String myDesc = " Missle launcher dir=" + launcher.getDirection();
 		return parentDesc + myDesc;
 	}
-	@Override
+	@Override 
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		g.setColor(this.getColor());
 		int xLoc = (int) getLocationX();
 		int yLoc = (int) getLocationY();
-		//g.fillRect(xLoc, yLoc, 100, 100);
 		g.fillPolygon(new int[] {xLoc+10,xLoc+30,xLoc+50}, new int[] {yLoc+100, yLoc+50, yLoc+100}, 3);
 	}
 	
@@ -105,4 +106,6 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 		double deltaY = Math.sin(theta)*distance;
 		this.setLocation(this.getLocationX() + deltaX, this.getLocationY() + deltaY);
 	}
+	
+	
 }

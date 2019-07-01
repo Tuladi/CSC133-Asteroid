@@ -16,7 +16,7 @@ import Interfaces.IDrawable;
 
 public class Missile extends MoveableGameObject implements IDrawable{
 	
-	private int fuelLevel = 30;
+	private int fuelLevel = 50;
 	private Ship owner;
 	
 	/*
@@ -28,15 +28,16 @@ public class Missile extends MoveableGameObject implements IDrawable{
 	 */
 	public Missile(Ship ship) {
 		super();
-		this.setColor(ColorUtil.GRAY);
+		this.setColor(ColorUtil.GREEN);
 		this.owner = ship;
 		try {
 			this.setDirection(ship.getDirectionML());
+			System.out.println("ML dir: " +ship.getDirectionML());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		this.setSpeed(ship.getSpeed() + 30);
-		this.setLocation(ship.getLocationX(), ship.getLocationY());
+		this.setSpeed(50);
+		this.setLocation(ship.getLocationX()+30, ship.getLocationY()+50);
 	}
 	
 	public void decrementFuelLevel() {
@@ -63,9 +64,9 @@ public class Missile extends MoveableGameObject implements IDrawable{
 		g.setColor(this.getColor());
 		int xLoc = (int) getLocationX();
 		int yLoc = (int) getLocationY();
-		g.drawRect(xLoc, yLoc, 10, 20);
+		g.fillRect(xLoc, yLoc, 10, 30);
 	}
-	
+	 
 	@Override
 	public void move(int elapsedMilliSecs)
 	{

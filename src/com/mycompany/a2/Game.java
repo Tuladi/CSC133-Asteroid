@@ -49,7 +49,8 @@ public class Game extends Form implements Runnable {
 	private GameWorldProxy gwp;
 	private MapView mv;
 	private PointsView pv;
-
+	private double mvWidth;
+	private double mvHeight;
 	Toolbar toolBar = new Toolbar();
 	
 	public Game() {
@@ -61,9 +62,13 @@ public class Game extends Form implements Runnable {
 		
 		gw = new GameWorld();
 		gwp = new GameWorldProxy(gw);
+
 		mv = new MapView(gw);
+		
 		pv = new PointsView();
+		
 		gw.init();
+		
 		
 		gw.addObserver(mv);
 		gw.addObserver(pv);
@@ -343,6 +348,6 @@ public class Game extends Form implements Runnable {
 	public void run() {
 		gw.tick();
 		mv.repaint();
-		gw.printMap();
 	} 
+	
 }

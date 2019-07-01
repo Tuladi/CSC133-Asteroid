@@ -6,8 +6,6 @@ import java.util.Observer;
 import com.codename1.ui.Container;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
-import com.codename1.ui.geom.Point2D;
-import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 
 import Interfaces.IDrawable;
@@ -15,17 +13,17 @@ import Interfaces.IGameWorld;
 import Interfaces.IIterator;
 
 public class MapView extends Container implements Observer{
-	
-	private double objX, objY;
 	private GameObjectCollection gwc;
 	private IGameWorld gameWorldProxy;
-	
+	private Container mvContainer;
+	private static int width;
+	private static int height;
 	public MapView(GameWorld gw){
-		
-		Container mvContainer = new Container();
+		mvContainer = new Container();
 		mvContainer.setLayout(new BoxLayout(BoxLayout.X_AXIS));
 		this.add(mvContainer);
 		gameWorldProxy = gw;
+		
 	}
 	
 	@Override
@@ -33,10 +31,9 @@ public class MapView extends Container implements Observer{
 	{
 		super.paint(g);
 		gwc = gameWorldProxy.getGameCollection();
-		
 		IIterator iter = gwc.getIterator();
 		
-		Point pCmpRelPrnt = new Point(getX(), getY());
+		Point pCmpRelPrnt = new Point((int) width, (int)height);
 		while(iter.hasNext()) {
 			GameObject go = (GameObject) iter.getNext();
 			if(go instanceof MoveableGameObject) {		
@@ -47,22 +44,19 @@ public class MapView extends Container implements Observer{
 				int bottomSide = getHeight()+getY();
 				int leftSide   = getX();
 				int topSide    = getY();
-
+ 
 				if(x <= leftSide || x >= rightSide) {
-					if(x <= 0) {
+					if(x <= 0)
 						((GameObject)go).setLocation((double) getWidth(), (double) y);	
-					}
-					if(x >= rightSide) {
+					if(x >= rightSide) 
 						((GameObject) go).setLocation((double) 0, (double) y);
-					}
 				}
-				if(y <= topSide || y>=bottomSide) {
-					if(y <= 0) {
+				
+				if(y <= topSide || y >= bottomSide) {
+					if(y <= 0) 
 						((GameObject) go).setLocation((double) getWidth(), (double) y);
-					}
-					if((y+getY()) >= bottomSide) {
+					if((y+getY()) >= bottomSide) 
 						((GameObject) go).setLocation((double) x, (double) 0);
-					}
 				}
 			}
 			if(go instanceof IDrawable)
@@ -72,6 +66,8 @@ public class MapView extends Container implements Observer{
 	
 	@Override
 	public void update(Observable realObject, Object data) {
+		width = this.getWidth();
+		height = this.getHeight();
 		if(realObject instanceof IGameWorld)
 		{
 			gameWorldProxy = (IGameWorld) data;
@@ -79,6 +75,14 @@ public class MapView extends Container implements Observer{
 		}
 	}
 	
+	public static int getMVWidth()
+	{
+		return width;
+	}
 	
+	public static int getMVHeight()
+	{
+		return height;
+	}
 	
 }
