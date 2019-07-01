@@ -7,6 +7,8 @@
 
 package com.mycompany.a2;
 
+import Interfaces.IMoveable;
+
 public abstract class MoveableGameObject extends GameObject implements IMoveable {
 	private int speed;
 	private int direction;
@@ -38,13 +40,13 @@ public abstract class MoveableGameObject extends GameObject implements IMoveable
 		this.direction =  d;
 	}
 	
-	@Override
-	public void move()
+
+	public void move(int elapsedMilliSecs)
 	{
-		int theta = 90 - this.getDirection();
-		double deltaX = Math.cos(theta)*this.getSpeed();
-		double deltaY = Math.sin(theta)*this.getSpeed();
-		
+		int theta = 90 - getDirection();
+		double distance = (double) getSpeed()* ((double) elapsedMilliSecs/1000.00);
+		double deltaX = Math.cos(theta)*distance;
+		double deltaY = Math.sin(theta)*distance;
 		this.setLocation(this.getLocationX() + deltaX, this.getLocationY() + deltaY);
 	}
 	

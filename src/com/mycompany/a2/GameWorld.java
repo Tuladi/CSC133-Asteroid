@@ -6,84 +6,100 @@
 
 package com.mycompany.a2;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 import java.util.Vector;
-import com.mycompany.a2.graphics.AsteroidShape;
+
+import Interfaces.IGameWorld;
+import Interfaces.IIterator;
+import Objects.Asteroid;
+import Objects.Missile;
+import Objects.NonPlayerShip;
+import Objects.PlayerShip;
+import Objects.SpaceStation;
+
 
 public class GameWorld extends Observable implements IGameWorld{
 	private Random random = new Random();
-	private Vector<GameObject> store = new Vector<GameObject>();
-	private Vector<GeometricShapes> worldShapes;
-	private GameObjectCollection gwc = new GameObjectCollection();
-	private GameWorldProxy gwp = new GameWorldProxy(this);
+	private GameObjectCollection gwc;
+	
 	private int numLives;
 	private int elapsedGameTime;
 	private int playerScore;
 	private int numPSMissiles;
+	
 	private double width;
 	private double length;
+	
 	private boolean sound;
 	
+	private Vector<Observer> myObserverList = new Vector<Observer>();
+	
+	public GameWorld()
+	{
+		gwc = new GameObjectCollection();
+		width = 1024.0;
+		length = 768.0;
+	}
 	public void init()
 	{
-		this.width = 1024.0;
-		this.length = 768.0;
-		this.numLives = 3;
-		this.elapsedGameTime = 0;
-		this.numPSMissiles = 10;
-		this.sound = true;
+		numLives = 3;
+		elapsedGameTime = 0;
+		numPSMissiles = 10;
+		sound = true;
+		setChanged();
+		notifyObservers(new GameWorldProxy(this));
 	}
 	
 	public void addNewAsteroid() {
 		Asteroid roid = new Asteroid(random.nextInt(25) + 6);
-		gwp.addGameObject(roid);
-		worldShapes.addElement(new AsteroidShape(roid));
+		addGameObject(roid);
 		setChanged();
-		notifyObservers();
+		notifyObservers(new GameWorldProxy(this));
 	}
 	
 	public void addPlayerShip() throws Exception {
-		IIterator theElements = gwp.getIterator();
+		IIterator theElements = getIterator();
 		while(theElements.hasNext())
 		{
 			GameObject temp = (GameObject) theElements.getNext();
 			if (temp instanceof PlayerShip) 
 				throw new Exception("Error: There is already a playership!");
 		}
-		gwp.addGameObject(PlayerShip.getPlayerShip());
+		addGameObject(PlayerShip.getPlayerShip());
 		setChanged();
-		notifyObservers();
+		notifyObservers(new GameWorldProxy(this));
 	}
 	
 	
 	public void addNonPlayerShip() {
 		NonPlayerShip tiFighter = new NonPlayerShip();
-		gwp.addGameObject(tiFighter);
+		addGameObject(tiFighter);
 		setChanged();
-		notifyObservers();
+		notifyObservers(new GameWorldProxy(this));
 	}
 	
 	public void addSpaceStation() {
 		SpaceStation deathStar = new SpaceStation();
-		gwp.addGameObject(deathStar);
+		addGameObject(deathStar);
 		setChanged();
-		notifyObservers();
+		notifyObservers(new GameWorldProxy(this));
 	}
 	
 	public void firePSMissile() {
-		IIterator theElements = gwp.getIterator();
+		IIterator theElements = getIterator();
 		while(theElements.hasNext()) {
 			GameObject tempObj = (GameObject) theElements.getNext();
 			if(tempObj instanceof PlayerShip) {
 				PlayerShip mFalcon = (PlayerShip) tempObj;
 				if(mFalcon.getMC() > 0) {
 					Missile pewPew = new Missile(mFalcon);
-					gwp.addGameObject(pewPew);
+					addGameObject(pewPew);
 					mFalcon.decrementMC();
 					this.numPSMissiles = mFalcon.getMC();
 					System.out.println("PS missile fired");
 					setChanged();
-					notifyObservers();
+					notifyObservers(new GameWorldProxy(this));
 					return;
 				}
 				else {
@@ -96,7 +112,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void fireNPSMissile() {
-		IIterator theElements = gwp.getIterator();
+		IIterator theElements = getIterator();
 		while(theElements.hasNext())
 		{
 			GameObject tempObj = (GameObject) theElements.getNext();
@@ -104,11 +120,11 @@ public class GameWorld extends Observable implements IGameWorld{
 				NonPlayerShip tiFighter = (NonPlayerShip) tempObj;
 				if(tiFighter.getMC() > 0) {
 					Missile pewPew = new Missile(tiFighter);
-					gwp.addGameObject(pewPew);
+					addGameObject(pewPew);
 					tiFighter.decrementMC();
 					System.out.println("NPS missile fired");
 					setChanged();
-					notifyObservers();
+					notifyObservers(new GameWorldProxy(this));
 					return;
 				}
 				else {
@@ -122,7 +138,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void printMap()
 	{
-		IIterator theElements = gwp.getIterator();
+		IIterator theElements = getIterator();
 		System.out.println("\n");
 		while(theElements.hasNext())
 		{
@@ -131,17 +147,9 @@ public class GameWorld extends Observable implements IGameWorld{
 		}
 	}
 	
-	public void displayScores()
-	{
-		System.out.println("playerScore = " + this.playerScore);
-		System.out.println("number of missles = " + this.numPSMissiles);
-		System.out.println("current elapsed time = " + this.elapsedGameTime);
-		System.out.println("number of lives = " + this.numLives);
-	}
-	
 	public void increasePSSpeed()
 	{
-		IIterator theElements = gwp.getIterator();
+		IIterator theElements = getIterator();
 		while(theElements.hasNext()) {
 			GameObject tempObj = (GameObject) theElements.getNext();
 			if(tempObj instanceof PlayerShip) {
@@ -150,7 +158,7 @@ public class GameWorld extends Observable implements IGameWorld{
 					mFalcon.increaseSpeed();
 					System.out.println("Player Ship Speed increased to: " + mFalcon.getSpeed());
 					setChanged();
-					notifyObservers();
+					notifyObservers(new GameWorldProxy(this));
 					return;
 				}
 				else {
@@ -164,7 +172,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void decreasePSSpeed()
 	{
-		IIterator theElements = gwp.getIterator();
+		IIterator theElements = getIterator();
 		while(theElements.hasNext()) {
 			GameObject tempObj = (GameObject) theElements.getNext();
 			if(tempObj instanceof PlayerShip) {
@@ -173,7 +181,7 @@ public class GameWorld extends Observable implements IGameWorld{
 					mFalcon.decreaseSpeed();
 					System.out.println("Player Ship Speed decreased to: " + mFalcon.getSpeed());
 					setChanged();
-					notifyObservers();
+					notifyObservers(new GameWorldProxy(this));
 					return;
 				}
 				else {
@@ -187,7 +195,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void turnPSL()
 	{
-		IIterator theElements = gwp.getIterator();
+		IIterator theElements = getIterator();
 		while(theElements.hasNext()) {
 			GameObject tempObj = (GameObject) theElements.getNext();
 			if(tempObj instanceof PlayerShip) {
@@ -195,7 +203,7 @@ public class GameWorld extends Observable implements IGameWorld{
 				mFalcon.turnLeft();
 				System.out.println("Drifting lazily to the left");
 				setChanged();
-				notifyObservers();
+				notifyObservers(new GameWorldProxy(this));
 				return;
 			}
 		}
@@ -204,7 +212,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void turnPSR()
 	{
-		IIterator theElements = gwp.getIterator();
+		IIterator theElements = getIterator();
 		while(theElements.hasNext()) {
 			GameObject tempObj = (GameObject) theElements.getNext();
 			if(tempObj instanceof PlayerShip) {
@@ -212,7 +220,7 @@ public class GameWorld extends Observable implements IGameWorld{
 				mFalcon.turnRight();
 				System.out.println("Drifting lazily to the right");
 				setChanged();
-				notifyObservers();
+				notifyObservers(new GameWorldProxy(this));
 				return;
 			}
 		}
@@ -220,7 +228,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void turnPSMLLeft() {
-		IIterator theElements = gwp.getIterator();
+		IIterator theElements = getIterator();
 		while(theElements.hasNext()) {
 			GameObject tempObj = (GameObject) theElements.getNext();
 			if(tempObj instanceof PlayerShip) {
@@ -228,7 +236,7 @@ public class GameWorld extends Observable implements IGameWorld{
 				mFalcon.revolveMLLeft();
 				System.out.println("Rotating Missile Launcher Left");
 				setChanged();
-				notifyObservers();
+				notifyObservers(new GameWorldProxy(this));
 				return;
 			}
 		}
@@ -236,7 +244,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void turnPSMLRight() {
-		IIterator theElements = gwp.getIterator();
+		IIterator theElements = getIterator();
 		while(theElements.hasNext()) {
 			GameObject tempObj = (GameObject) theElements.getNext();
 			if(tempObj instanceof PlayerShip) {
@@ -244,7 +252,7 @@ public class GameWorld extends Observable implements IGameWorld{
 				mFalcon.revolveMLRight();
 				System.out.println("Rotating Missile Launcher Right");
 				setChanged();
-				notifyObservers();
+				notifyObservers(new GameWorldProxy(this));
 				return;
 			}
 		}
@@ -253,7 +261,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	public void jump()
 	{
-		IIterator theElements = gwp.getIterator();
+		IIterator theElements = getIterator();
 		while(theElements.hasNext()) {
 			GameObject tempObj = (GameObject) theElements.getNext();
 			if(tempObj instanceof PlayerShip) {
@@ -261,7 +269,7 @@ public class GameWorld extends Observable implements IGameWorld{
 				mFalcon.setLocation(512, 384);
 				System.out.println("Punch it Chewie!");
 				setChanged();
-				notifyObservers();
+				notifyObservers(new GameWorldProxy(this));
 				return;
 			}
 		}
@@ -271,7 +279,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	//TODO Currently reloads all ships. Make it so it only reloads ships "close to" stations
 	public void reload()
 	{
-		IIterator theElements = gwp.getIterator();
+		IIterator theElements = getIterator();
 		while(theElements.hasNext())
 		{
 			GameObject tempObj = (GameObject) theElements.getNext();
@@ -285,14 +293,14 @@ public class GameWorld extends Observable implements IGameWorld{
 			}
 		}
 		setChanged();
-		notifyObservers();
+		notifyObservers(new GameWorldProxy(this));
 	}
 	
 	//TODO Currently destroys a random missile and asteroid. Make it destroy "close" missiles and asteroids
 	public void missileHitAsteroid()
 	{
-		IIterator it1 = gwp.getIterator();
-		IIterator it2 = gwp.getIterator();
+		IIterator it1 = getIterator();
+		IIterator it2 = getIterator();
 		while(it1.hasNext()) {
 			GameObject tempObj = (GameObject) it1.getNext();
 			if(tempObj instanceof Missile) {
@@ -311,7 +319,7 @@ public class GameWorld extends Observable implements IGameWorld{
 							it1.remove(pewPew);
 							it1.remove(roid);
 							setChanged();
-							notifyObservers();
+							notifyObservers(new GameWorldProxy(this));
 							return;
 						//}
 					}
@@ -323,8 +331,8 @@ public class GameWorld extends Observable implements IGameWorld{
 	//TODO Currently destroys a random missile and random NPS. Make it destroy "Close" missiles and NPS
 	public void missileHitNPS()
 	{
-		IIterator it1 = gwp.getIterator();
-		IIterator it2 = gwp.getIterator();
+		IIterator it1 = getIterator();
+		IIterator it2 = getIterator();
 		while(it1.hasNext()) {
 			GameObject tempObj = (GameObject) it1.getNext();
 			if(tempObj instanceof Missile) {
@@ -343,7 +351,7 @@ public class GameWorld extends Observable implements IGameWorld{
 								System.out.println("+50 points");
 							}
 							setChanged();
-							notifyObservers();
+							notifyObservers(new GameWorldProxy(this));
 							return;
 						//}
 					}
@@ -354,8 +362,8 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	//TODO Currently destroys a random Missile and the PS. Make it destroy "close" missile and PS
 	public void explodedPS() {
-		IIterator it1 = gwp.getIterator();
-		IIterator it2 = gwp.getIterator();
+		IIterator it1 = getIterator();
+		IIterator it2 = getIterator();
 		while(it1.hasNext()) {
 			GameObject tempObj = (GameObject) it1.getNext();
 			if(tempObj instanceof Missile) {
@@ -371,7 +379,7 @@ public class GameWorld extends Observable implements IGameWorld{
 						it1.remove(PlayerShip.getPlayerShip());
 					}
 					setChanged();
-					notifyObservers();
+					notifyObservers(new GameWorldProxy(this));
 					return;
 					//}
 				}
@@ -382,8 +390,8 @@ public class GameWorld extends Observable implements IGameWorld{
 	//TODO Currently destroys a random Asteroid and the PS. Make it destroy "close" Asteroid and PS
 	public void asteroidHitPS()
 	{
-		IIterator it1 = gwp.getIterator();
-		IIterator it2 = gwp.getIterator();
+		IIterator it1 = getIterator();
+		IIterator it2 = getIterator();
 		while(it1.hasNext()) {
 			GameObject tempObj = (GameObject) it1.getNext();
 			if(tempObj instanceof Asteroid) {
@@ -400,7 +408,7 @@ public class GameWorld extends Observable implements IGameWorld{
 							it1.remove(PlayerShip.getPlayerShip());
 						}
 						setChanged();
-						notifyObservers();
+						notifyObservers(new GameWorldProxy(this));
 						return;
 					//}
 					
@@ -412,8 +420,8 @@ public class GameWorld extends Observable implements IGameWorld{
 	//TODO Currently destroys a random NPS and the PS. Make it destroy "close" NPS and PS
 	public void npsHitPS() 
 	{
-		IIterator it1 = gwp.getIterator();
-		IIterator it2 = gwp.getIterator();
+		IIterator it1 = getIterator();
+		IIterator it2 =getIterator();
 		while(it1.hasNext()) {
 			GameObject tempObj = (GameObject) it1.getNext();
 			if(tempObj instanceof NonPlayerShip) {
@@ -430,7 +438,7 @@ public class GameWorld extends Observable implements IGameWorld{
 							it1.remove(PlayerShip.getPlayerShip());
 						}
 						setChanged();
-						notifyObservers();
+						notifyObservers(new GameWorldProxy(this));
 						return;
 					//}
 				}
@@ -441,9 +449,9 @@ public class GameWorld extends Observable implements IGameWorld{
 	//TODO currently destroys two random Asteroids. Make it destroy "close" Asteroids
 	public void asteroidHitAsteroid()
 	{
-		IIterator it1 = gwp.getIterator();
-		IIterator it2 = gwp.getIterator();
-		IIterator it3 = gwp.getIterator();
+		IIterator it1 = getIterator();
+		IIterator it2 = getIterator();
+		IIterator it3 = getIterator();
 		while(it3.hasNext()) {
 			GameObject tempObj = (GameObject) it3.getNext();
 			if(tempObj instanceof Asteroid) {
@@ -457,7 +465,7 @@ public class GameWorld extends Observable implements IGameWorld{
 							it1.remove(roid);
 							it1.remove(roid2);
 							setChanged();
-							notifyObservers();
+							notifyObservers(new GameWorldProxy(this));
 							return;
 						//}
 					}
@@ -468,8 +476,8 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	//TODO currently destroys a random Asteroid and random NPS. Make it destroy "close" Asteroid and NPS
 	public void asteroidHitNPS() {
-		IIterator it1 = gwp.getIterator();
-		IIterator it2 = gwp.getIterator();
+		IIterator it1 = getIterator();
+		IIterator it2 = getIterator();
 		while(it1.hasNext()) {
 			GameObject tempObj = (GameObject) it1.getNext();
 			if(tempObj instanceof Asteroid) {
@@ -483,7 +491,7 @@ public class GameWorld extends Observable implements IGameWorld{
 							it1.remove(roid);
 							it1.remove(tiFighter);
 							setChanged();
-							notifyObservers();
+							notifyObservers(new GameWorldProxy(this));
 							return;
 						//}
 					}
@@ -493,21 +501,21 @@ public class GameWorld extends Observable implements IGameWorld{
 	}
 	
 	public void tick() {
-		IIterator it1 = gwp.getIterator();
-		IIterator it2 = gwp.getIterator();
-		this.elapsedGameTime += 1;
-		System.out.println("elapsed game time: " + this.elapsedGameTime);
+		IIterator it1 = getIterator();
+		IIterator it2 = getIterator();
+		elapsedGameTime += 1; 
 		while(it1.hasNext()) {
 			GameObject tempObj = (GameObject) it1.getNext();
 			if(tempObj instanceof MoveableGameObject) {
 				MoveableGameObject moveR = (MoveableGameObject) tempObj;
-				moveR.move();
+				moveR.move(elapsedGameTime);
 				if(moveR instanceof Missile) {
 					Missile pewPew = (Missile) moveR;
 					pewPew.decrementFuelLevel();
 					if (pewPew.getFuelLevel() == 0) {
 						System.out.println(pewPew.getShipType() + "'s Missile is out of fuel. Cya");
-						it2.remove(pewPew);
+						it1.remove(pewPew);
+						return;
 					}
 				}
 			}
@@ -518,57 +526,50 @@ public class GameWorld extends Observable implements IGameWorld{
 			}
 		}
 		setChanged();
-		notifyObservers();
+		notifyObservers(new GameWorldProxy(this));
 	}
 	
 	public void toggleSound() {
 		this.sound = !sound;
 		setChanged();
-		notifyObservers();
+		notifyObservers(new GameWorldProxy(this));
 	}
 	
-	public int getPlayerScore () 
-	{
-		return this.playerScore;
-	}
-	public int getNumLives () 
-	{ 
-		return this.numLives; 
-	}
-	public int getMissileCount () 
-	{
-		return this.numPSMissiles; 
-	}
-	public int getElapsedTime () 
-	{ 
-		return this.elapsedGameTime; 
-	}
+
+	public int getPlayerScore () { return this.playerScore; }
+	public int getNumLives () { return this.numLives; }
+	public int getMissileCount () { return this.numPSMissiles; }
+	public int getElapsedTime () { return this.elapsedGameTime; }
+	public boolean getSound() { return this.sound; }
 	public String getSoundState ()
 	{
 		if (this.sound == true)
 			return "ON";
 		else { return "OFF"; }
 	}
-	public Vector<GeometricShapes> getWorldShapes(){
-		return this.worldShapes;
-	}
+	public GameObjectCollection getGameCollection() { return gwc;}
+	
+	public void setPlayerScore (int x) {this.playerScore = x;}
+	public void setNumLives (int x) { this.numLives = x; }
+	public void setMissileCount (int x) { this.numPSMissiles = x; }
+	public void setElapsedTime (int x) { this.elapsedGameTime = x; }
+	public void setSound (boolean x) { this.sound = x; }
 	
 	
 	@Override
 	public IIterator getIterator() {
-		// TODO Auto-generated method stub
 		return gwc.getIterator();
 	}
 
-	@Override
+	
 	public void addGameObject(GameObject o) {
-		// TODO Auto-generated method stub
 		gwc.add(o);
 	}
 
 	@Override
 	public boolean removeGameObject(GameObject o) {
-		// TODO Auto-generated method stub
+		gwc.getIterator().remove(o);
 		return false;
 	}
+	
 }

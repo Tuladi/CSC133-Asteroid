@@ -15,6 +15,7 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.plaf.Border;
+import com.codename1.ui.util.UITimer;
 import com.mycompany.a2.commands.AddAsteroidCommand;
 import com.mycompany.a2.commands.AddNPSCommand;
 import com.mycompany.a2.commands.AddPSCommand;
@@ -43,28 +44,41 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent; 
 
-public class Game extends Form {
-	private final GameWorld gw = new GameWorld();
+public class Game extends Form implements Runnable {
+	private GameWorld gw;
 	private GameWorldProxy gwp;
 	private MapView mv;
 	private PointsView pv;
-	private GameObjectCollection GameCollection;
+
 	Toolbar toolBar = new Toolbar();
 	
 	public Game() {
-		gwp = new GameWorldProxy(gw);
-		mv = new MapView();
-		pv = new PointsView();
-		GameCollection = new GameObjectCollection();
+		/*this.getAllStyles().setBgTransparency(255);
+		this.getAllStyles().setBgColor(ColorUtil.BLACK);*/
 		
-		//gw.init();
+		UITimer timer = new UITimer(this);
+		timer.schedule(20, true, this);
+		
+		gw = new GameWorld();
+		gwp = new GameWorldProxy(gw);
+		mv = new MapView(gw);
+		pv = new PointsView();
+		gw.init();
+		
 		gw.addObserver(mv);
 		gw.addObserver(pv);
 		
+		this.setLayout(new BorderLayout());
+		
 		toolbar();
+		
+		this.add(BorderLayout.NORTH, pv);
+		this.add(BorderLayout.CENTER, mv);
+		
 		controlPanel();
-		mapArea();
 		keyBindings();
+		
+		
 	}
 	
 	private void keyBindings()
@@ -171,24 +185,13 @@ public class Game extends Form {
 			}
 		});
 	}
-	
-	private void mapArea() {
-		Container mapArea = new CustomContainer(gw.getWorldShapes());
-		
-		mapArea.getAllStyles().setBgTransparency(255);
-		mapArea.getAllStyles().setPadding(TOP, 5);
-		mapArea.getAllStyles().setPadding(BOTTOM, 5);
-		mapArea.getAllStyles().setPadding(LEFT, 5);
-		mapArea.getAllStyles().setPadding(RIGHT, 5);
-		mapArea.getAllStyles().setBorder(Border.createLineBorder(1, ColorUtil.BLACK));
-		
-		this.add(BorderLayout.CENTER, mapArea);
-	}
+
 	
 	private void toolbar() {
 		setToolbar(toolBar);
+		Label title = new Label("Asteroid");
 		//pv.getAllStyles().setBorder(Border.createLineBorder(1,ColorUtil.BLACK));
-		toolBar.setTitleComponent(pv);
+		toolBar.setTitleComponent(title);
 		
 		//Quit Button
 		Button quitGame = new Button("Quit Game");
@@ -246,6 +249,7 @@ public class Game extends Form {
 	}
 	
 	private void controlPanel()
+
 	{
 		this.setLayout(new BorderLayout());
 		Container controlPanel = new Container(new GridLayout(1, 1));
@@ -334,4 +338,11 @@ public class Game extends Form {
 		
 		show();
 	}
+
+	@Override
+	public void run() {
+		gw.tick();
+		mv.repaint();
+		gw.printMap();
+	} 
 }

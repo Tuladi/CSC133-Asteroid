@@ -7,29 +7,36 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Font;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
+
+import Interfaces.IGameWorld;
 
 public class PointsView extends Container implements Observer {
 	// Instantiate text labels
-	private Label pNScoreLabel, pNMissileLabel, pNLivesLabel, pNSoundLabel, pNTimeLabel;
+	private Label pNScoreLabel;
+	private Label pNMissileLabel;
+	private Label pNLivesLabel;
+	private Label pNSoundLabel;
+	private Label pNTimeLabel;
 	
 	public PointsView() 
 	{
-		Container pvContainer = new Container();
-		pvContainer.setLayout(new BoxLayout(BoxLayout.X_AXIS));
+		//Container pvContainer = new Container();
+		this.setLayout(new FlowLayout(CENTER));
 		Font newFont = Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_SMALL);
 		
 		//Labels
-		Label pTextLabel = new Label("Score:");
-		Label pMCLabel = new Label("Missile Count:");
-		Label pLivesLabel = new Label("Lives:");
-		Label pSoundLabel = new Label("Sound:");
-		Label pTimeLabel = new Label("Time:");
+		Label pTextLabel = new Label("Score: 	");
+		Label pMCLabel = new Label("Missile Count:	");
+		Label pLivesLabel = new Label("Lives:	");
+		Label pSoundLabel = new Label("Sound:	");
+		Label pTimeLabel = new Label("Time:		");
 		
-		pNScoreLabel = new Label("0");
-		pNMissileLabel = new Label("10");
-		pNLivesLabel = new Label("3");
-		pNSoundLabel = new Label("ON");
-		pNTimeLabel = new Label("000");
+		pNScoreLabel = new Label("000   ");
+		pNMissileLabel = new Label("10   ");
+		pNLivesLabel = new Label("3   ");
+		pNSoundLabel = new Label("ON   ");
+		pNTimeLabel = new Label("000   ");
 		
 		//Colors
 		pTextLabel.getAllStyles().setFgColor(ColorUtil.BLACK);
@@ -52,29 +59,28 @@ public class PointsView extends Container implements Observer {
 		pNTimeLabel.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
 		
 		//Adding Containers
-		pvContainer.add(pTextLabel);
-		pvContainer.add(pNScoreLabel);
-		pvContainer.add(pMCLabel);
-		pvContainer.add(pNMissileLabel);
-		pvContainer.add(pLivesLabel);
-		pvContainer.add(pNLivesLabel);
-		pvContainer.add(pSoundLabel);
-		pvContainer.add(pNSoundLabel);
-		pvContainer.add(pTimeLabel);
-		pvContainer.add(pNTimeLabel);
+		this.add(pTextLabel);
+		this.add(pNScoreLabel);
+		this.add(pMCLabel);
+		this.add(pNMissileLabel);
+		this.add(pLivesLabel);
+		this.add(pNLivesLabel);
+		this.add(pSoundLabel);
+		this.add(pNSoundLabel);
+		this.add(pTimeLabel);
+		this.add(pNTimeLabel);
 		
-		this.add(pvContainer);
+		//this.add(pvContainer);
 	}
 	
 	@Override
 	public void update(Observable realObject, Object data)
 	{
-		GameWorld gw = (GameWorld) realObject;
-		this.pNScoreLabel.setText("" + gw.getPlayerScore());
-		this.pNMissileLabel.setText("" + gw.getMissileCount());
-		this.pNLivesLabel.setText("" + gw.getNumLives());
-		this.pNSoundLabel.setText("" + gw.getSoundState());
-		this.pNTimeLabel.setText("" + gw.getElapsedTime());
-		this.repaint();
+		IGameWorld gw = (IGameWorld) data;
+		this.pNScoreLabel.setText("" + ((IGameWorld) data).getPlayerScore());
+		this.pNMissileLabel.setText("" + ((IGameWorld) data).getMissileCount());
+		this.pNLivesLabel.setText("" + ((IGameWorld) data).getNumLives());
+		this.pNSoundLabel.setText("" + ((IGameWorld) data).getSoundState());
+		this.pNTimeLabel.setText("" + ((IGameWorld) data).getElapsedTime()/50);
 	}
 }

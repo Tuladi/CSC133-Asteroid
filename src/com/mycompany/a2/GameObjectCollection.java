@@ -1,20 +1,23 @@
 package com.mycompany.a2;
 import java.util.Vector;
 
+import Interfaces.ICollection;
+import Interfaces.IIterator;
+
 public class GameObjectCollection implements ICollection {
-	private Vector<GameObject> store;
+	private Vector<GameObject> ObjectCollection;
 	
 	public GameObjectCollection() {
-		store = new Vector<GameObject>();
+		ObjectCollection = new Vector<GameObject>();
 	}
 	
 	public Vector<GameObject> getObjects()
 	{
-		return store;
+		return ObjectCollection;
 	}
 	
 	public void add(GameObject newObject) {
-		store.addElement(newObject);
+		ObjectCollection.addElement(newObject);
 	}
 	
 	public IIterator getIterator() {
@@ -29,22 +32,22 @@ public class GameObjectCollection implements ICollection {
 		}
 		
 		public boolean hasNext() {
-			if (store.size() <= 0)
+			if (ObjectCollection.size() <= 0)
 				return false;
-			if (currElementIndex == store.size() - 1)
+			if (currElementIndex == ObjectCollection.size() - 1)
 				return false;
 			return true;
 		}
 		
 		public GameObject getNext() {
 			currElementIndex++;
-			return(store.elementAt(currElementIndex));
+			return(ObjectCollection.elementAt(currElementIndex));
 		}
 
 		@Override
 		public void remove(GameObject obj) {
 			// TODO Auto-generated method stub
-			store.remove(obj);
+			ObjectCollection.remove(obj);
 			
 		}
 	}

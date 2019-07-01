@@ -5,6 +5,9 @@
 
 package com.mycompany.a2;
 import com.codename1.charts.util.ColorUtil;
+
+import Interfaces.ISteerable;
+import Objects.MissileLauncher;
  
 /*
  * Initialize the launcher with a direction it inherits from the player
