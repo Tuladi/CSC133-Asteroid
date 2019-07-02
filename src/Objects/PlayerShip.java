@@ -19,8 +19,6 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 	private static final int maxMissiles = 10;
 	private static PlayerShip mFalcon;
 	
-	private double iX;
-	private double iY;
 	private int iShapeX;
 	private int iShapeY;
 	
@@ -98,11 +96,11 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 	@Override 
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		g.setColor(this.getColor());
-		this.iShapeX = (int) Math.round(pCmpRelPrnt.getX() + (float) this.iX);
-		this.iShapeY = (int) Math.round(pCmpRelPrnt.getY() + (float) this.iY);
+		this.iShapeX = (int) getLocationX();
+		this.iShapeY = (int) getLocationY();
 		
 		
-		g.rotateRadians((float) Math.toRadians((double) this.getDirection()), iShapeX, iShapeY);
+		g.rotateRadians((float) Math.toRadians((double) 180 - this.getDirection()), iShapeX, iShapeY);
 		
 		//draw the nose
 		g.fillTriangle(iShapeX + 20/2, iShapeY, iShapeX + 20/6, iShapeY + 20/2, iShapeX + 20*5/6, iShapeY + 20/2);
@@ -120,7 +118,7 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 		g.fillArc(iShapeX, iShapeY, 20, 20, 0, 360);
 		g.fillRect(iShapeX + 20*5/6, iShapeY, 20/6, 20/2);
 		
-		g.rotateRadians((float) -Math.toRadians((double) this.getDirection()), iShapeX, iShapeY);
+		g.rotateRadians((float) -Math.toRadians((double) 180 - this.getDirection()), iShapeX, iShapeY);
 		launcher.draw(g, pCmpRelPrnt);
 	}
 	
