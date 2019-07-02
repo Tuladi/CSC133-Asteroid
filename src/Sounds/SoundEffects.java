@@ -53,5 +53,21 @@ public class SoundEffects {
 	public void toggleEnable()
 	{
 		this.enable = !this.enable;
+		if (!enable){
+			pauseBG();
+		}
+		else{
+			playBG();
+		}
+	}
+	
+	public void pauseBG()
+	{
+		spaceMusic.pause();
+	}
+	
+	public void playBG()
+	{
+		spaceMusic.play(volume);
 	}
 }

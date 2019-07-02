@@ -18,6 +18,8 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 	private SteerableMissileLauncher launcher;
 	private static final int maxMissiles = 10;
 	private static PlayerShip mFalcon;
+	private double centerX = MapView.getMVWidth()/2;
+	private double centerY = MapView.getMVHeight()/2;
 	
 	/*
 	 * The player ship must be spawned in the middle of the map, facing north
@@ -29,7 +31,7 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 		this.setColor(ColorUtil.rgb(255, 0, 0));
 		this.setSpeed(0);
 		this.setDirection(180);
-		this.setLocation(MapView.getMVWidth()/2, MapView.getMVHeight()/2);
+		this.setLocation(centerX, centerY);
 		launcher = new SteerableMissileLauncher(180);
 	}
 	
@@ -90,6 +92,7 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 		String myDesc = " Missle launcher dir=" + launcher.getDirection();
 		return parentDesc + myDesc;
 	}
+	/*
 	@Override 
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		g.setColor(this.getColor());
@@ -98,7 +101,36 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 		int yLoc = (int) pCmpRelPrnt.getY() + (int) this.getLocationY();
 		g.fillPolygon(new int[] {xLoc+10,xLoc+30,xLoc+50}, new int[] {yLoc+100, yLoc+50, yLoc+100}, 3);
 		launcher.draw(g, pCmpRelPrnt);
-	}
+	}*/
+	
+	@Override 
+    public void draw(Graphics g, Point pCmpRelPrnt) {
+        g.setColor(this.getColor());
+        int iShapeX = (int) pCmpRelPrnt.getX() + (int) this.getLocationX();
+        int iShapeY = (int) pCmpRelPrnt.getY() + (int) this.getLocationY();
+
+
+        g.rotateRadians((float) Math.toRadians((double) 180 - this.getDirection()), iShapeX, iShapeY);
+
+        //draw the nose
+        g.fillTriangle(iShapeX + 20/2, iShapeY, iShapeX + 20/6, iShapeY + 20/2, iShapeX + 205/6, iShapeY + 20/2);
+
+        //draw the gap in the ship
+        g.setColor(ColorUtil.WHITE);
+        g.fillRect(iShapeX + 207/16, iShapeY, 20/8, 203/8);
+        g.fillRect(iShapeX, iShapeY, 20, 20/7);
+
+        //adjust iShapeY since the rest of the body of the ship is much lower
+        iShapeY += 205/14;
+
+        //draw the ship body
+        g.setColor(this.getColor());
+        g.fillArc(iShapeX, iShapeY, 20, 20, 0, 360);
+        g.fillRect(iShapeX + 20*5/6, iShapeY, 20/6, 20/2);
+
+        g.rotateRadians((float) -Math.toRadians((double) 180 - this.getDirection()), iShapeX, iShapeY);
+        launcher.draw(g, pCmpRelPrnt);
+    }
 	
 	@Override
 	public void move(int elapsedMilliSecs)

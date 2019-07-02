@@ -270,7 +270,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			GameObject tempObj = (GameObject) theElements.getNext();
 			if(tempObj instanceof PlayerShip) {
 				PlayerShip mFalcon = (PlayerShip) tempObj;
-				mFalcon.setLocation(512, 384);
+				mFalcon.setLocation(1517, 1003);
 				System.out.println("Punch it Chewie!");
 				setChanged();
 				notifyObservers(new GameWorldProxy(this));
@@ -532,12 +532,14 @@ public class GameWorld extends Observable implements IGameWorld{
 					deathStar.toggleLight();
 			}
 		}
+		//if()
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
 	
 	public void toggleSound() {
 		this.sound = !sound;
+		sounds.toggleEnable();
 		setChanged();
 		notifyObservers(new GameWorldProxy(this));
 	}
@@ -560,7 +562,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void setNumLives (int x) { this.numLives = x; }
 	public void setMissileCount (int x) { this.numPSMissiles = x; }
 	public void setElapsedTime (int x) { this.elapsedGameTime = x; }
-	public void setSound (boolean x) { this.sound = x; sounds.toggleEnable();}
+	public void setSound (boolean x) { this.sound = x;}
 	
 	
 	@Override

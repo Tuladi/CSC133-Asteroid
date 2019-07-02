@@ -40,11 +40,11 @@ public class MapView extends Container implements Observer{
 				int x = (int) ((GameObject) go).getLocationX();
 				int y = (int) ((GameObject) go).getLocationY();
 				
-				int rightSide  = getWidth()+getX();
-				int bottomSide = getHeight()+getY();
 				int leftSide   = getX();
 				int topSide    = getY();
- 
+				int rightSide  = MapView.getMVWidth()+getX();
+				int bottomSide = MapView.getMVHeight()+getY();
+				
 				if(x <= leftSide || x >= rightSide) {
 					if(x <= 0)
 						((GameObject)go).setLocation((double) getWidth(), (double) y);	
@@ -53,10 +53,10 @@ public class MapView extends Container implements Observer{
 				}
 				
 				if(y <= topSide || y >= bottomSide) {
-					if(y <= 0) 
-						((GameObject) go).setLocation((double) getWidth(), (double) y);
-					if((y+getY()) >= bottomSide) 
-						((GameObject) go).setLocation((double) x, (double) 0);
+					if(y+getY() <= 0) 
+						((GameObject) go).setLocation((double) x, (double) getHeight());
+					if(y+getY() >= bottomSide) 
+						((GameObject) go).setLocation((double) x, (double) getX());
 				}
 			}
 			if(go instanceof IDrawable)

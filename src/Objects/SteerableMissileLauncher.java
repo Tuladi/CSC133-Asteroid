@@ -40,8 +40,8 @@ public class SteerableMissileLauncher extends MissileLauncher implements ISteera
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		g.setColor(this.getColor());
-		int xLoc = (int) PlayerShip.getPlayerShip().getLocationX() + pCmpRelPrnt.getX() + 30;
-		int yLoc = (int) PlayerShip.getPlayerShip().getLocationY() + pCmpRelPrnt.getY() + 50;
+		int xLoc = (int) PlayerShip.getPlayerShip().getLocationX() + pCmpRelPrnt.getX();
+		int yLoc = (int) PlayerShip.getPlayerShip().getLocationY() + pCmpRelPrnt.getY();
 		g.fillRect(xLoc, yLoc, 5, 60);
 	}
 	
