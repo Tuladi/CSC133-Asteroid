@@ -19,6 +19,11 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 	private static final int maxMissiles = 10;
 	private static PlayerShip mFalcon;
 	
+	private double iX;
+	private double iY;
+	private int iShapeX;
+	private int iShapeY;
+	
 	/*
 	 * The player ship must be spawned in the middle of the map, facing north
 	 * and with an initial speed of 0, so we declare those here to over-write
@@ -93,9 +98,29 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 	@Override 
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		g.setColor(this.getColor());
-		int xLoc = (int) getLocationX();
-		int yLoc = (int) getLocationY();
-		g.fillPolygon(new int[] {xLoc+10,xLoc+30,xLoc+50}, new int[] {yLoc+100, yLoc+50, yLoc+100}, 3);
+		this.iShapeX = (int) Math.round(pCmpRelPrnt.getX() + (float) this.iX);
+		this.iShapeY = (int) Math.round(pCmpRelPrnt.getY() + (float) this.iY);
+		
+		
+		g.rotateRadians((float) Math.toRadians((double) this.getDirection()), iShapeX, iShapeY);
+		
+		//draw the nose
+		g.fillTriangle(iShapeX + 20/2, iShapeY, iShapeX + 20/6, iShapeY + 20/2, iShapeX + 20*5/6, iShapeY + 20/2);
+		
+		//draw the gap in the ship
+		g.setColor(ColorUtil.WHITE);
+		g.fillRect(iShapeX + 20*7/16, iShapeY, 20/8, 20*3/8);
+		g.fillRect(iShapeX, iShapeY, 20, 20/7);
+		
+		//adjust iShapeY since the rest of the body of the ship is much lower
+		this.iShapeY += 20*5/14;
+		
+		//draw the ship body
+		g.setColor(this.getColor());
+		g.fillArc(iShapeX, iShapeY, 20, 20, 0, 360);
+		g.fillRect(iShapeX + 20*5/6, iShapeY, 20/6, 20/2);
+		
+		g.rotateRadians((float) -Math.toRadians((double) this.getDirection()), iShapeX, iShapeY);
 		launcher.draw(g, pCmpRelPrnt);
 	}
 	
