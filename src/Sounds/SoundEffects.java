@@ -49,4 +49,9 @@ public class SoundEffects {
 	{
 		return bgVolume;
 	}
+	
+	public void toggleEnable()
+	{
+		this.enable = !this.enable;
+	}
 }

@@ -57,8 +57,8 @@ public class NonPlayerShip extends Ship implements IDrawable {
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		g.setColor(this.getColor());
-		int xLoc = (int) getLocationX();
-		int yLoc = (int) getLocationY();
+		int xLoc = (int) pCmpRelPrnt.getX() + (int) this.getLocationX();
+		int yLoc = (int) pCmpRelPrnt.getY() + (int) this.getLocationY();
 		g.fillArc(xLoc, yLoc, size*10, size*4, 0, 360);
 	}
 	

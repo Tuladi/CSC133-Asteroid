@@ -55,8 +55,6 @@ public class Game extends Form implements Runnable {
 	Toolbar toolBar = new Toolbar();
 	
 	public Game() {
-		/*this.getAllStyles().setBgTransparency(255);
-		this.getAllStyles().setBgColor(ColorUtil.BLACK);*/
 		
 		UITimer timer = new UITimer(this);
 		timer.schedule(20, true, this);

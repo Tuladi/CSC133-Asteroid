@@ -30,7 +30,7 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 		this.setSpeed(0);
 		this.setDirection(180);
 		this.setLocation(MapView.getMVWidth()/2, MapView.getMVHeight()/2);
-		launcher  = new SteerableMissileLauncher(180);
+		launcher = new SteerableMissileLauncher(180);
 	}
 	
 	public static PlayerShip getPlayerShip()
@@ -93,8 +93,9 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 	@Override 
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		g.setColor(this.getColor());
-		int xLoc = (int) getLocationX();
-		int yLoc = (int) getLocationY();
+		
+		int xLoc = (int) pCmpRelPrnt.getX() + (int) this.getLocationX();
+		int yLoc = (int) pCmpRelPrnt.getY() + (int) this.getLocationY();
 		g.fillPolygon(new int[] {xLoc+10,xLoc+30,xLoc+50}, new int[] {yLoc+100, yLoc+50, yLoc+100}, 3);
 		launcher.draw(g, pCmpRelPrnt);
 	}

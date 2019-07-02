@@ -17,6 +17,7 @@ import Objects.Missile;
 import Objects.NonPlayerShip;
 import Objects.PlayerShip;
 import Objects.SpaceStation;
+import Objects.SteerableMissileLauncher;
 import Sounds.BGSound;
 import Sounds.SoundEffects;
 
@@ -559,7 +560,7 @@ public class GameWorld extends Observable implements IGameWorld{
 	public void setNumLives (int x) { this.numLives = x; }
 	public void setMissileCount (int x) { this.numPSMissiles = x; }
 	public void setElapsedTime (int x) { this.elapsedGameTime = x; }
-	public void setSound (boolean x) { this.sound = x; }
+	public void setSound (boolean x) { this.sound = x; sounds.toggleEnable();}
 	
 	
 	@Override

@@ -33,8 +33,7 @@ public class MapView extends Container implements Observer{
 		super.paint(g);
 		gwc = gameWorldProxy.getGameCollection();
 		IIterator iter = gwc.getIterator();
-		
-		Point pCmpRelPrnt = new Point((int) width, (int)height);
+		Point pCmpRelPrnt = new Point(getX(), getY());
 		while(iter.hasNext()) {
 			GameObject go = (GameObject) iter.getNext();
 			if(go instanceof MoveableGameObject) {		

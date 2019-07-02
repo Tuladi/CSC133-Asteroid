@@ -18,7 +18,7 @@ import Interfaces.ISteerable;
 public class SteerableMissileLauncher extends MissileLauncher implements ISteerable, IDrawable {
 	public SteerableMissileLauncher(int d) {
 		super(d);
-		this.setColor(ColorUtil.MAGENTA);
+		this.setColor(ColorUtil.rgb(0, 255, 255));
 	}
 	
 	@Override
@@ -40,10 +40,9 @@ public class SteerableMissileLauncher extends MissileLauncher implements ISteera
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		g.setColor(this.getColor());
-		int xLoc = (int) getLocationX();
-		int yLoc = (int) getLocationY();
-		//g.fillPolygon(new int[] {xLoc+10,xLoc+30,xLoc+50}, new int[] {yLoc+100, yLoc+50, yLoc+100}, 3);
-		g.fillRect(xLoc, yLoc, 15, 15);
+		int xLoc = (int) PlayerShip.getPlayerShip().getLocationX() + pCmpRelPrnt.getX() + 30;
+		int yLoc = (int) PlayerShip.getPlayerShip().getLocationY() + pCmpRelPrnt.getY() + 50;
+		g.fillRect(xLoc, yLoc, 5, 60);
 	}
 	
 	@Override
