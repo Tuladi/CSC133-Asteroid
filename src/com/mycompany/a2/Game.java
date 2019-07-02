@@ -43,6 +43,7 @@ import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent; 
+import Sounds.SoundEffects;
 
 public class Game extends Form implements Runnable {
 	private GameWorld gw;
@@ -251,6 +252,8 @@ public class Game extends Form implements Runnable {
 		undoButton.getAllStyles().setPadding(TOP,5);
 		undoButton.getAllStyles().setPadding(BOTTOM,5);
 		toolBar.addComponentToLeftSideMenu(undoButton);
+		
+		
 	}
 	
 	private void controlPanel()

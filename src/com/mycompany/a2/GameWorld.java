@@ -9,9 +9,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 import java.util.Vector;
-
 import com.codename1.ui.Container;
-
 import Interfaces.IGameWorld;
 import Interfaces.IIterator;
 import Objects.Asteroid;
@@ -19,12 +17,13 @@ import Objects.Missile;
 import Objects.NonPlayerShip;
 import Objects.PlayerShip;
 import Objects.SpaceStation;
-
+import Sounds.BGSound;
+import Sounds.SoundEffects;
 
 public class GameWorld extends Observable implements IGameWorld{
 	private Random random = new Random(); 
 	private GameObjectCollection gwc;
-	
+	private SoundEffects sounds;
 	private int numLives;
 	private int elapsedGameTime;
 	private int playerScore;
@@ -35,13 +34,12 @@ public class GameWorld extends Observable implements IGameWorld{
 	
 	private boolean sound;
 	
-	private Vector<Observer> myObserverList = new Vector<Observer>();
 	
 	public GameWorld()
 	{
 		gwc = new GameObjectCollection();
-		width = 1024.0;
-		height = 768.0;
+		sounds = new SoundEffects();
+		sounds.bgMusicSound();
 	}
 	public void init()
 	{
@@ -100,6 +98,7 @@ public class GameWorld extends Observable implements IGameWorld{
 					mFalcon.decrementMC();
 					this.numPSMissiles = mFalcon.getMC();
 					System.out.println("PS missile fired");
+					sounds.missileSound();
 					setChanged();
 					notifyObservers(new GameWorldProxy(this));
 					return;
@@ -237,6 +236,7 @@ public class GameWorld extends Observable implements IGameWorld{
 				PlayerShip mFalcon = (PlayerShip) tempObj;
 				mFalcon.revolveMLLeft();
 				System.out.println("Rotating Missile Launcher Left");
+				sounds.launcherRotateSound();
 				setChanged(); 
 				notifyObservers(new GameWorldProxy(this));
 				return;
@@ -253,6 +253,7 @@ public class GameWorld extends Observable implements IGameWorld{
 				PlayerShip mFalcon = (PlayerShip) tempObj;
 				mFalcon.revolveMLRight();
 				System.out.println("Rotating Missile Launcher Right");
+				sounds.launcherRotateSound();
 				setChanged();
 				notifyObservers(new GameWorldProxy(this));
 				return;
@@ -378,6 +379,7 @@ public class GameWorld extends Observable implements IGameWorld{
 					this.numLives -= 1;
 					if(this.numLives == 0) {
 						System.out.println("Player Ship destroyed");
+						sounds.gameOverSound();
 						it1.remove(PlayerShip.getPlayerShip());
 					}
 					setChanged();
@@ -407,6 +409,7 @@ public class GameWorld extends Observable implements IGameWorld{
 						this.numLives -= 1;
 						if(this.numLives == 0) {
 							System.out.println("Player Ship destroyed");
+							sounds.gameOverSound();
 							it1.remove(PlayerShip.getPlayerShip());
 						}
 						setChanged();
@@ -437,6 +440,7 @@ public class GameWorld extends Observable implements IGameWorld{
 						System.out.println("+50 points");
 						if(this.numLives == 0) {
 							System.out.println("Player Ship destroyed");
+							sounds.gameOverSound();
 							it1.remove(PlayerShip.getPlayerShip());
 						}
 						setChanged();

@@ -18,6 +18,7 @@ public class MapView extends Container implements Observer{
 	private Container mvContainer;
 	private static int width;
 	private static int height;
+
 	public MapView(GameWorld gw){
 		mvContainer = new Container();
 		mvContainer.setLayout(new BoxLayout(BoxLayout.X_AXIS));

@@ -15,7 +15,7 @@ import Interfaces.IDrawable;
 import Interfaces.ISteerable;
 
 public class PlayerShip extends Ship implements ISteerable, IDrawable {
-	private SteerableMissileLauncher launcher  = new SteerableMissileLauncher(180);
+	private SteerableMissileLauncher launcher;
 	private static final int maxMissiles = 10;
 	private static PlayerShip mFalcon;
 	
@@ -30,6 +30,7 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 		this.setSpeed(0);
 		this.setDirection(180);
 		this.setLocation(MapView.getMVWidth()/2, MapView.getMVHeight()/2);
+		launcher  = new SteerableMissileLauncher(180);
 	}
 	
 	public static PlayerShip getPlayerShip()
@@ -95,6 +96,7 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 		int xLoc = (int) getLocationX();
 		int yLoc = (int) getLocationY();
 		g.fillPolygon(new int[] {xLoc+10,xLoc+30,xLoc+50}, new int[] {yLoc+100, yLoc+50, yLoc+100}, 3);
+		launcher.draw(g, pCmpRelPrnt);
 	}
 	
 	@Override
