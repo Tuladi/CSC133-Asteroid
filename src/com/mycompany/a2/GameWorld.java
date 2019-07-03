@@ -270,7 +270,7 @@ public class GameWorld extends Observable implements IGameWorld{
 			GameObject tempObj = (GameObject) theElements.getNext();
 			if(tempObj instanceof PlayerShip) {
 				PlayerShip mFalcon = (PlayerShip) tempObj;
-				mFalcon.setLocation(1517, 1003);
+				mFalcon.setLocation(MapView.getMVWidth()/2, MapView.getMVHeight()/2);
 				System.out.println("Punch it Chewie!");
 				setChanged();
 				notifyObservers(new GameWorldProxy(this));

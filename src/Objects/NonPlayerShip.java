@@ -59,10 +59,8 @@ public class NonPlayerShip extends Ship implements IDrawable {
 		// TODO Auto-generated method stub
 		
 		g.setColor(this.getColor());
-		double xLoc = getLocationX();
-		double yLoc = getLocationY();
-		int iShapeX = (int) Math.round(pCmpRelPrnt.getX() + (float) xLoc);
-		int iShapeY = (int) Math.round(pCmpRelPrnt.getY() + (float) yLoc);
+		int iShapeX = (int) Math.round(pCmpRelPrnt.getX() + (float) getLocationX());
+		int iShapeY = (int) Math.round(pCmpRelPrnt.getY() + (float) getLocationY());
 		g.rotateRadians((float) Math.toRadians((double) this.getDirection()), iShapeX, iShapeY);
 		g.fillArc(iShapeX, iShapeY + this.size/2, this.size, this.size, 0, 360);
 		g.drawLine(iShapeX, iShapeY, iShapeX, iShapeY + this.size*2);
