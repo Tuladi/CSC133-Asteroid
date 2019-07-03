@@ -82,5 +82,6 @@ public class PointsView extends Container implements Observer {
 		this.pNLivesLabel.setText("" + ((IGameWorld) data).getNumLives());
 		this.pNSoundLabel.setText("" + ((IGameWorld) data).getSoundState());
 		this.pNTimeLabel.setText("" + ((IGameWorld) data).getElapsedTime()/50);
+		this.getParent().revalidate();
 	}
 }
