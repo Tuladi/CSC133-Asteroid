@@ -37,7 +37,7 @@ public class Missile extends MoveableGameObject implements IDrawable{
 			e.printStackTrace();
 		}
 		this.setSpeed(50);
-		this.setLocation(ship.getLocationX()+30, ship.getLocationY()+50);
+		this.setLocation(ship.getLocationX(), ship.getLocationY());
 	}
 	
 	public void decrementFuelLevel() {
@@ -62,9 +62,11 @@ public class Missile extends MoveableGameObject implements IDrawable{
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
 		g.setColor(this.getColor());
-		int xLoc = (int) pCmpRelPrnt.getX() + (int) this.getLocationX();
-		int yLoc = (int) pCmpRelPrnt.getY() + (int) this.getLocationY();
-		g.fillRect(xLoc, yLoc, 10, 30);
+		int xLoc = (int) pCmpRelPrnt.getX() + (int) getLocationX();
+		int yLoc = (int) pCmpRelPrnt.getY() + (int) getLocationY();
+		g.rotateRadians((float) Math.toRadians((double) 180 - this.getDirection()), xLoc, yLoc);
+		g.fillRect(xLoc, yLoc, 5, 15);
+		g.rotateRadians((float) -Math.toRadians((double) 180 - this.getDirection()), xLoc, yLoc);
 	}
 	 
 	@Override

@@ -106,8 +106,8 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 	@Override 
     public void draw(Graphics g, Point pCmpRelPrnt) {
         g.setColor(this.getColor());
-        int iShapeX = (int) getLocationX();
-        int iShapeY = (int) getLocationY();
+        int iShapeX = (int) (pCmpRelPrnt.getX() + getLocationX());
+        int iShapeY = (int) (pCmpRelPrnt.getY() + getLocationY());
         int size = 20;
 
 
@@ -128,9 +128,12 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
         g.setColor(this.getColor());
         g.fillArc(iShapeX, iShapeY, size, size, 0, 360);
         g.fillRect(iShapeX + size*5/6, iShapeY, size/6, size/2);
+        
+        //draw launcher
+        Point temp = new Point(iShapeX + 10, iShapeY + 10);
+        launcher.draw(g, temp);
 
         g.rotateRadians((float) -Math.toRadians((double) 180 - this.getDirection()), iShapeX, iShapeY);
-        launcher.draw(g, pCmpRelPrnt);
     }
 	
 	@Override
