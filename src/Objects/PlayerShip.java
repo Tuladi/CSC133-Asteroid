@@ -118,6 +118,7 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 
         //draw the gap in the ship
         g.setColor(ColorUtil.WHITE);
+        g.darkerColor(17);
         g.fillRect(iShapeX + size*7/16, iShapeY, size/8, size*3/8);
         g.fillRect(iShapeX, iShapeY, size, size/7);
 

@@ -23,8 +23,8 @@ public abstract class GameObject {
 	 */
 	public GameObject() 
 	{
-		this.location.setX(0 + R.nextDouble()*1024);
-		this.location.setY(0 + R.nextDouble()*1024);
+		this.location.setX(0 + R.nextDouble()*MapView.getMVWidth());
+		this.location.setY(0 + R.nextDouble()*MapView.getMVHeight());
 	}
 	
 	public String getLocation()

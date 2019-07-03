@@ -77,9 +77,9 @@ public class Game extends Form implements Runnable {
 		toolbar();
 		
 		this.add(BorderLayout.NORTH, pv);
+		controlPanel();
 		this.add(BorderLayout.CENTER, mv);
 		
-		controlPanel();
 		keyBindings();
 		
 		
