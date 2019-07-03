@@ -458,9 +458,8 @@ public class GameWorld extends Observable implements IGameWorld{
 	{
 		IIterator it1 = getIterator();
 		IIterator it2 = getIterator();
-		IIterator it3 = getIterator();
-		while(it3.hasNext()) {
-			GameObject tempObj = (GameObject) it3.getNext();
+		while(it2.hasNext()) {
+			GameObject tempObj = (GameObject) it2.getNext();
 			if(tempObj instanceof Asteroid) {
 				Asteroid roid = (Asteroid) tempObj;
 				while(it2.hasNext()) {
