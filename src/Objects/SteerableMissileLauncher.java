@@ -18,7 +18,7 @@ import Interfaces.ISteerable;
 public class SteerableMissileLauncher extends MissileLauncher implements ISteerable, IDrawable {
 	public SteerableMissileLauncher(int d) {
 		super(d);
-		this.setColor(ColorUtil.rgb(0, 255, 255));
+		this.setColor(ColorUtil.CYAN);
 	}
 	
 	@Override

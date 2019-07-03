@@ -28,7 +28,7 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 	 */
 	private PlayerShip() {
 		super(maxMissiles);
-		this.setColor(ColorUtil.rgb(255, 0, 0));
+		this.setColor(ColorUtil.GRAY);
 		this.setSpeed(0);
 		this.setDirection(180);
 		this.setLocation(centerX, centerY);

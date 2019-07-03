@@ -14,7 +14,7 @@ public class MissileLauncher extends MoveableGameObject{
 
 	public MissileLauncher(int d) {
 		super();
-		this.setColor(ColorUtil.YELLOW);
+		this.setColor(ColorUtil.MAGENTA);
 		this.setDirection(d);
 	}
 }

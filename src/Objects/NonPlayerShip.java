@@ -24,7 +24,7 @@ public class NonPlayerShip extends Ship implements IDrawable {
 	 */
 	public NonPlayerShip() {
 		super(maxMissiles);
-		this.setColor(ColorUtil.CYAN);
+		this.setColor(ColorUtil.BLACK);
 		if (R.nextInt(2) == 1) {
 			this.size = 15;
 		}
@@ -56,10 +56,18 @@ public class NonPlayerShip extends Ship implements IDrawable {
 	
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
+		// TODO Auto-generated method stub
+		
 		g.setColor(this.getColor());
-		int xLoc = (int) pCmpRelPrnt.getX() + (int) this.getLocationX();
-		int yLoc = (int) pCmpRelPrnt.getY() + (int) this.getLocationY();
-		g.fillArc(xLoc, yLoc, size*10, size*4, 0, 360);
+		double xLoc = getLocationX();
+		double yLoc = getLocationY();
+		int iShapeX = (int) Math.round(pCmpRelPrnt.getX() + (float) xLoc);
+		int iShapeY = (int) Math.round(pCmpRelPrnt.getY() + (float) yLoc);
+		g.rotateRadians((float) Math.toRadians((double) this.getDirection()), iShapeX, iShapeY);
+		g.fillArc(iShapeX, iShapeY + this.size/2, this.size, this.size, 0, 360);
+		g.drawLine(iShapeX, iShapeY, iShapeX, iShapeY + this.size*2);
+		g.drawLine(iShapeX + this.size, iShapeY, iShapeX + this.size, iShapeY + this.size*2);
+		g.rotateRadians((float) -Math.toRadians((double) this.getDirection()), iShapeX, iShapeY);
 	}
 	
 	@Override
