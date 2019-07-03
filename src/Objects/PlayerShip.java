@@ -106,27 +106,28 @@ public class PlayerShip extends Ship implements ISteerable, IDrawable {
 	@Override 
     public void draw(Graphics g, Point pCmpRelPrnt) {
         g.setColor(this.getColor());
-        int iShapeX = (int) pCmpRelPrnt.getX() + (int) this.getLocationX();
-        int iShapeY = (int) pCmpRelPrnt.getY() + (int) this.getLocationY();
+        int iShapeX = (int) getLocationX();
+        int iShapeY = (int) getLocationY();
+        int size = 20;
 
 
         g.rotateRadians((float) Math.toRadians((double) 180 - this.getDirection()), iShapeX, iShapeY);
 
         //draw the nose
-        g.fillTriangle(iShapeX + 20/2, iShapeY, iShapeX + 20/6, iShapeY + 20/2, iShapeX + 205/6, iShapeY + 20/2);
+        g.fillTriangle(iShapeX + size/2, iShapeY, iShapeX + size/6, iShapeY + size/2, iShapeX + size*5/6, iShapeY + size/2);
 
         //draw the gap in the ship
         g.setColor(ColorUtil.WHITE);
-        g.fillRect(iShapeX + 207/16, iShapeY, 20/8, 203/8);
-        g.fillRect(iShapeX, iShapeY, 20, 20/7);
+        g.fillRect(iShapeX + size*7/16, iShapeY, size/8, size*3/8);
+        g.fillRect(iShapeX, iShapeY, size, size/7);
 
         //adjust iShapeY since the rest of the body of the ship is much lower
-        iShapeY += 205/14;
+        iShapeY += size*5/14;
 
         //draw the ship body
         g.setColor(this.getColor());
-        g.fillArc(iShapeX, iShapeY, 20, 20, 0, 360);
-        g.fillRect(iShapeX + 20*5/6, iShapeY, 20/6, 20/2);
+        g.fillArc(iShapeX, iShapeY, size, size, 0, 360);
+        g.fillRect(iShapeX + size*5/6, iShapeY, size/6, size/2);
 
         g.rotateRadians((float) -Math.toRadians((double) 180 - this.getDirection()), iShapeX, iShapeY);
         launcher.draw(g, pCmpRelPrnt);
