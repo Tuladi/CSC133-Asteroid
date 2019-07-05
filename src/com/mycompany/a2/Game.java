@@ -4,7 +4,6 @@
  */
 
 package com.mycompany.a2;
-import java.util.Vector;
 
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Button;
@@ -42,16 +41,13 @@ import com.mycompany.a2.commands.ToggleSoundCommand;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
-import com.codename1.ui.events.ActionEvent; 
-import Sounds.SoundEffects;
+import com.codename1.ui.events.ActionEvent;
 
 public class Game extends Form implements Runnable {
 	private GameWorld gw;
 	private GameWorldProxy gwp;
 	private MapView mv;
 	private PointsView pv;
-	private double mvWidth;
-	private double mvHeight;
 	Toolbar toolBar = new Toolbar();
 	
 	public Game() {
@@ -327,7 +323,7 @@ public class Game extends Form implements Runnable {
 		addKeyListener(-90, myPSFireCmd);
 		
 		//Jump
-		Button jumpButton = new Button("PS Fire");
+		Button jumpButton = new Button("Jump");
 		jumpButton.getAllStyles().setBgTransparency(255);
 		jumpButton.getUnselectedStyle().setBgColor(ColorUtil.BLUE);
 		jumpButton.getAllStyles().setFgColor(ColorUtil.WHITE);
